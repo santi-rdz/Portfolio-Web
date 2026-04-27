@@ -1,0 +1,148 @@
+---
+import Heading from "./Heading.astro";
+const techs = [
+  "JavaScript (ES6+)",
+  "HTML & CSS",
+  "React",
+  "Astro",
+  "Tailwind CSS",
+  "TypeScript",
+  "Figma",
+  "Node.js",
+  "Next.js",
+  "Git & Github",
+  "VS Code",
+];
+---
+
+<section id="about" class="about-section center-section">
+  <div class="container">
+    <header>
+      <Heading as="h2">About Me</Heading>
+    </header>
+    <div class="about-grid">
+      <section class="about-text txt-6">
+        <p data-animate="fade-up" style="--delay: 100ms">
+          Hey! I'm Raul Rodriguez, I'm currently pursuing a degree in Software
+          Engineering and am in my final two semesters at <span
+            >Universidad Autonoma de Baja California</span
+          >, where I've learned core principles of software development, system
+          design, and industry best practices, including writing clean,
+          maintainable, and scalable code.
+        </p>
+        <p data-animate="fade-up" style="--delay: 200ms">
+          Along the way, I discovered a strong interest in web development. I
+          enjoy how modern web applications are built, especially the
+          flexibility and expressiveness of <span>JavaScript</span> and how the language
+          has evolved over time.
+        </p>
+        <p data-animate="fade-up" style="--delay: 300ms">
+          I'm particularly interested in learning and working with modern web
+          technologies such as <span>Tailwind CSS</span>, <span>React</span>,
+          and <span>Astro</span>, and exploring the broader web ecosystem.
+        </p>
+      </section>
+      <section class="about-techs" data-animate="fade-left">
+        <div>
+          <p class="txt-6">Technologies i Work With:</p>
+          <ul class="techs-list">
+            {techs.map((tech) => <li>{tech}</li>)}
+          </ul>
+        </div>
+      </section>
+    </div>
+  </div>
+</section>
+
+<style>
+  .about-grid {
+    display: flex;
+    gap: 120px;
+  }
+
+  .about-text {
+    flex-basis: 55%;
+    text-align: justify;
+    display: flex;
+    flex-direction: column;
+    gap: 1lh;
+  }
+
+  .about-text p {
+    color: var(--color-gray);
+  }
+
+  .about-text span {
+    color: var(--color-primary);
+    font-weight: var(--font-medium);
+  }
+
+  .about-techs {
+    border: 1px solid var(--color-primary-20);
+    flex-basis: 45%;
+    border-radius: var(--radius-md);
+  }
+
+  .about-techs div {
+    padding: 16px;
+    border: 1px solid var(--lines-grid-color);
+    transform: translate(-6px, -6px);
+    background-color: #fff;
+    border-radius: inherit;
+    box-shadow:
+      0px 1px 3px rgba(0, 0, 0, 0.1),
+      0px 1px 2px -1px rgba(0, 0, 0, 0.1);
+  }
+
+  .about-techs p {
+    color: var(--color-gray);
+    font-weight: var(--font-regular);
+  }
+
+  .techs-list {
+    margin-top: 16px;
+    list-style: none;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px 16px;
+    color: var(--color-gray);
+    font-family: "JetBrains";
+    font-weight: var(--font-regular);
+  }
+
+  .techs-list li::before {
+    content: ">";
+    color: var(--color-primary);
+    margin-right: 4px;
+  }
+
+  @media screen and (width <= 900px) {
+    .about-grid {
+      flex-direction: column;
+      gap: 32px;
+    }
+
+    .about-text,
+    .about-techs {
+      flex-basis: auto;
+    }
+
+    .about-techs {
+      max-width: 480px;
+    }
+  }
+
+  @media screen and (width <= 480px) {
+    .about-grid {
+      gap: 24px;
+    }
+
+    .techs-list {
+      grid-template-columns: 1fr;
+    }
+
+    .about-techs {
+      max-width: 100%;
+    }
+  }
+</style>

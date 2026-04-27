@@ -1,0 +1,202 @@
+---
+import Link from "./Link.astro";
+---
+
+<header class="main-header">
+  <nav class="nav lg-container">
+    <a href="/" class="txt-5 logo">&lt;RR /&gt;</a>
+    <button
+      class="nav-toggle"
+      aria-label="Toggle navigation"
+      aria-expanded="false"
+    >
+      <span></span>
+      <span></span>
+      <span></span>
+    </button>
+    <ul class="nav-ul">
+      <li><Link href="#about">About</Link></li>
+      <li><Link href="#experience">Experience</Link></li>
+      <li><Link href="#projects">Projects</Link></li>
+      <li><Link href="#skills">Skills</Link></li>
+      <li><Link href="#contact">Contact</Link></li>
+      <li>
+        <Link href="/public/resume.pdf" download data-cta target="_blank"
+          >Resume</Link
+        >
+      </li>
+    </ul>
+  </nav>
+</header>
+
+<style>
+  .main-header {
+    padding-block: 1.5rem;
+    width: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 10;
+
+    border-bottom: 1px solid transparent;
+    transition:
+      padding-block 0.3s ease,
+      background-color 0.3s ease,
+      border-color 0.3s ease;
+  }
+
+  .main-header.scrolled {
+    padding-block: 0.5rem;
+    background-color: #fff;
+    border-bottom-color: var(--lines-grid-color);
+  }
+
+  .nav {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .nav-ul {
+    list-style: none;
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+  }
+
+  .logo {
+    color: var(--color-primary);
+    text-decoration: none;
+  }
+  .logo:visited,
+  .logo:hover,
+  .logo:active,
+  .logo:focus {
+    color: var(--color-primary);
+    text-decoration: none;
+  }
+
+  .nav-toggle {
+    display: none;
+  }
+
+  @media screen and (width <= 768px) {
+    .main-header {
+      padding-inline: 0;
+    }
+
+    .nav-toggle {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      gap: 5px;
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: 8px;
+      z-index: 20;
+    }
+
+    .nav-toggle span {
+      display: block;
+      width: 24px;
+      height: 2px;
+      background-color: var(--color-heading);
+      border-radius: 2px;
+      transition:
+        transform 0.3s ease,
+        opacity 0.3s ease;
+    }
+
+    .nav-toggle.is-open span:nth-child(1) {
+      transform: translateY(7px) rotate(45deg);
+    }
+
+    .nav-toggle.is-open span:nth-child(2) {
+      opacity: 0;
+    }
+
+    .nav-toggle.is-open span:nth-child(3) {
+      transform: translateY(-7px) rotate(-45deg);
+    }
+
+    .nav-ul {
+      display: none;
+      position: absolute;
+      top: 100%;
+      left: 0;
+      right: 0;
+      flex-direction: column;
+      align-items: center;
+      gap: 0;
+      background-color: #fff;
+      border-bottom: 1px solid var(--lines-grid-color);
+      padding-block: 1rem;
+    }
+
+    .nav-ul.is-open {
+      display: flex;
+    }
+
+    .nav-ul li {
+      width: 100%;
+      text-align: center;
+      padding-block: 0.75rem;
+      border-bottom: 1px solid var(--lines-grid-color-50);
+    }
+
+    .nav-ul li:last-child {
+      border-bottom: none;
+      padding-top: 1rem;
+    }
+  }
+
+  @media screen and (width <= 480px) {
+    .main-header {
+      padding-block: 1rem;
+    }
+  }
+</style>
+
+<script>
+  function initHeader() {
+    const header = document.querySelector(".main-header");
+    const hero = document.querySelector(".hero-section");
+    const toggle = document.querySelector(".nav-toggle");
+    const navUl = document.querySelector(".nav-ul");
+
+    if (!header) return;
+
+    if (!hero) {
+      header.classList.add("scrolled");
+    } else {
+      header.classList.remove("scrolled");
+
+      const observer = new IntersectionObserver(
+        ([entry]) => {
+          header.classList.toggle("scrolled", !entry.isIntersecting);
+        },
+        { threshold: 0.5 },
+      );
+      observer.observe(hero);
+    }
+
+    if (toggle && navUl) {
+      toggle.addEventListener("click", () => {
+        const isOpen = navUl.classList.toggle("is-open");
+        toggle.classList.toggle("is-open", isOpen);
+        toggle.setAttribute("aria-expanded", String(isOpen));
+      });
+
+      navUl.querySelectorAll("a").forEach((link) => {
+        link.addEventListener("click", () => {
+          navUl.classList.remove("is-open");
+          toggle.classList.remove("is-open");
+          toggle.setAttribute("aria-expanded", "false");
+        });
+      });
+    }
+  }
+
+  document.addEventListener("astro:page-load", initHeader);
+</script>

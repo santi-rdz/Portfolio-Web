@@ -1,0 +1,133 @@
+---
+import Heading from "./Heading.astro";
+import Link from "./Link.astro";
+---
+
+<section id="contact" class="contact-section center-section">
+  <div class="contact-container container">
+    <header class="contact-header" data-animate="fade-up">
+      <Heading as="h5">What's Next?</Heading>
+      <Heading as="h1">Get In Touch!</Heading>
+      <p class="contact-description">
+        I'm currently looking for new opportunities. Feel free to reach out!
+      </p>
+    </header>
+    <form action="" class="contact-form" data-animate="fade-up" style="--delay: 150ms">
+      <label class="field">
+        <span>Name</span>
+        <input
+          class="input"
+          type="text"
+          name="name"
+          placeholder="Your Name"
+          required
+        />
+      </label>
+      <label class="field">
+        <span>Email</span>
+        <input
+          class="input"
+          type="email"
+          name="email"
+          placeholder="Your Email"
+          required
+        />
+      </label>
+      <label class="field">
+        <span> Message</span>
+        <textarea
+          class="input"
+          name="message"
+          rows="5"
+          placeholder="Your Message"
+          required></textarea>
+      </label>
+      <Link type="submit" data-md as="button" data-mono data-cta
+        >Send Message</Link
+      >
+    </form>
+    <footer class="contact-footer">
+      <p>raul2003santiago@gmail.com</p>
+      <p>+52 664 456-7890</p>
+    </footer>
+  </div>
+</section>
+
+<style>
+  .contact-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 48px;
+    text-align: center;
+  }
+  .contact-header {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+  }
+  .contact-description {
+    color: var(--color-gray);
+    max-width: 300px;
+    font-size: var(--font-6);
+    font-weight: -var(--font-regular);
+  }
+  .contact-form {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+
+    width: 100%;
+    max-width: 400px;
+  }
+  .contact-footer {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    color: var(--color-gray);
+    font-size: var(--font-6);
+    align-items: center;
+    font-size: var(--font-7);
+    margin-top: auto;
+  }
+  .field {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    text-align: left;
+    font-size: var(--font-6);
+    color: var(--color-gray);
+
+    span {
+      font-family: "JetBrains";
+      font-size: var(--font-7);
+    }
+  }
+  .input {
+    border: 1px solid var(--lines-grid-color);
+    padding: 12px 16px;
+    border-radius: var(--radius-md);
+    font-family: "JetBrains";
+
+    &::placeholder {
+      color: var(--color-gray-50);
+    }
+  }
+
+  @media screen and (width <= 768px) {
+    .contact-container {
+      gap: 32px;
+    }
+
+    .contact-form {
+      max-width: 100%;
+    }
+  }
+
+  @media screen and (width <= 480px) {
+    .contact-container {
+      gap: 24px;
+    }
+  }
+</style>

@@ -1,0 +1,81 @@
+import caisImg from "../assets/projects/cais-web-img.png";
+import recipeImg from "../assets/projects/recipe-web-img.png";
+import dictionaryImg from "../assets/projects/dictionary-web-img.png";
+import countriesImg from "../assets/projects/countries-web-img.png";
+
+export const projects = [
+  {
+    title: "CAIS",
+    description: "Sistema de evolucion de pacientes para el CAIS",
+    github: "https://github.com/santi-rdz/cais",
+    website: "http://localhost:5173/",
+    image: caisImg,
+    tools: [
+      "React",
+      "TailwindCSS",
+      "Vite",
+      "JavaScript",
+      "Express",
+      "Node.js",
+      "MySQL",
+      "Docker",
+      "Prisma",
+      "Express-sessions",
+      "Zod",
+      "Semantic HTML",
+    ],
+  },
+  {
+    title: "Recipe Finder",
+    description: "Aplicacion para buscar recetas usando la API de Spoonacular",
+    github: "https://github.com/santi-rdz/recipe-finder-react",
+    website: "https://rdz-recipe-finder-react.netlify.app/",
+    image: recipeImg,
+    tools: [
+      "React",
+      "TailwindCSS",
+      "Vite",
+      "JavaScript",
+      "Spoonacular API",
+      "Fetch API",
+      "HTML5",
+      "CSS3",
+      "Semantic HTML",
+    ],
+  },
+  {
+    title: "Dictionary",
+    description: "Aplicacion para buscar definiciones de palabras",
+    github: "https://github.com/santi-rdz/dictionary-web",
+    website: "https://rdz-dictionary-react.netlify.app/",
+    image: dictionaryImg,
+    tools: [
+      "React",
+      "TailwindCSS",
+      "Vite",
+      "JavaScript",
+      "Fetch API",
+      "Dictionary API",
+      "HTML5",
+      "CSS3",
+      "Semantic HTML",
+    ],
+  },
+  {
+    title: "Countries App",
+    description: "Aplicacion para buscar informacion sobre paises",
+    website: "https://rdz-api-rest-countries.netlify.app/",
+    github: "https://github.com/santi-rdz/rest-countries",
+    image: countriesImg,
+    tools: [
+      "HTML5",
+      "CSS3",
+      "TailwindCSS",
+      "Vite",
+      "JavaScript",
+      "Fetch API",
+      "REST API",
+      "Semantic HTML",
+    ],
+  },
+];

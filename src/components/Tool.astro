@@ -1,0 +1,26 @@
+---
+const { name, "data-md": md } = Astro.props;
+---
+
+<span class="tool-item txt-7" data-md={md !== undefined ? "" : undefined}>{name}</span>
+
+<style>
+  .tool-item {
+    padding: 8px 16px;
+    border-radius: var(--radius-full);
+    background-color: var(--color-primary-5);
+    color: var(--color-primary);
+    border: 1px solid var(--color-primary-20);
+    font-family: "JetBrains";
+    cursor: default;
+    transition: background-color 0.2s ease, color 0.2s ease;
+  }
+  .tool-item:hover {
+    background-color: var(--color-primary);
+    color: #fff;
+  }
+  .tool-item[data-md] {
+    padding: 3px 8px;
+    font-size: 0.65rem;
+  }
+</style>

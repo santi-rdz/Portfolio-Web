@@ -1,0 +1,100 @@
+---
+import Github from "./icons/Github.astro";
+import Linkedin from "./icons/Linkedin.astro";
+import Mail from "./icons/Mail.astro";
+---
+
+<div class="media-links">
+  <ul>
+    <li>
+      <a
+        href="https://github.com/santi-rdz"
+        target="_blank"
+        rel="noopener noreferrer"><Github /></a
+      >
+    </li>
+    <li>
+      <a
+        href="https://linkedin.com/in/raul-rodriguez-169911369"
+        target="_blank"
+        rel="noopener noreferrer"><Linkedin /></a
+      >
+    </li>
+    <li>
+      <a
+        href="mailto:raul2003santiago@gmail.com"
+        target="_blank"
+        rel="noopener noreferrer"><Mail /></a
+      >
+    </li>
+  </ul>
+  <div class="bar"></div>
+</div>
+
+<style>
+  .media-links {
+    position: fixed;
+    bottom: 0;
+    right: 40px;
+    z-index: 10;
+  }
+
+  .media-links ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  .media-links li {
+    margin-bottom: 10px;
+  }
+
+  .media-links a {
+    color: var(--color-gray);
+    display: flex;
+    padding: 8px;
+    border-radius: var(--radius-md);
+    position: relative;
+    transition: color 0.3s ease, transform 0.3s ease;
+  }
+
+  .media-links a:hover {
+    color: var(--color-primary);
+    transform: translateY(-3px);
+  }
+
+  .media-links a::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    background-color: var(--color-primary-20);
+    opacity: 0;
+    transform: scale(0.7);
+    transition: opacity 0.3s ease, transform 0.3s ease;
+  }
+
+  .media-links a:hover::before {
+    opacity: 1;
+    transform: scale(1);
+  }
+
+  .bar {
+    width: 2px;
+    height: 100px;
+    background-color: var(--lines-grid-color);
+    margin: 0 auto;
+  }
+
+  .media-links a :global(.media-icon) {
+    transition: color 0.3s ease;
+    position: relative;
+    z-index: 1;
+  }
+
+  @media screen and (width <= 1024px) {
+    .media-links {
+      display: none;
+    }
+  }
+</style>

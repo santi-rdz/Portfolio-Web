@@ -1,0 +1,50 @@
+---
+import "../styles/global.css";
+import { ClientRouter } from "astro:transitions";
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="icon" href="/favicon.ico" />
+    <meta name="generator" content={Astro.generator} />
+    <title>Astro Basics</title>
+    <ClientRouter />
+  </head>
+  <body>
+    <div class="grid-lines">
+      <span></span>
+      <span></span>
+      <span></span>
+      <span></span>
+      <span></span>
+    </div>
+
+    <slot />
+  </body>
+</html>
+
+<script>
+  function initAnimations() {
+    const root = document.querySelector(".scroll-wrapper") ?? null;
+    const elements = document.querySelectorAll("[data-animate]");
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("is-visible");
+          }
+        });
+      },
+      { root, threshold: 0.1 }
+    );
+
+    elements.forEach((el) => observer.observe(el));
+  }
+
+  document.addEventListener("astro:page-load", initAnimations);
+</script>

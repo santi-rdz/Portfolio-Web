@@ -1,0 +1,130 @@
+---
+import Heading from "./Heading.astro";
+
+const skills = [
+  "Frontend Development",
+  "Backend Development",
+  "Responsive Design",
+  "JavaScript (ES6+)",
+  "Compoent-Based Frameworks (React, Astro)",
+  "CSS (Tailwind CSS, Flexbox, Grid)",
+  "Semantic HTML",
+  "CSS Architecture",
+  "RESTful APIs",
+  "Authentication and Security",
+  "Database Integration",
+  "Accesability (a11y)",
+  "Performance Optimization",
+];
+const tools = [
+  "HTML5",
+  "CSS3",
+  "JavaScript",
+  "React",
+  "Astro",
+  "Node.js",
+  "Express",
+  "Tailwind CSS",
+  "Git",
+  "GitHub",
+  "VS Code",
+  "Zod",
+  "Prisma",
+  "MySQL",
+  "Supabase",
+  "Vercel",
+  "Figma",
+];
+---
+
+<section id="skills" class="skills-section center-section">
+  <div class="container">
+    <Heading as="h2">Skills & Tools</Heading>
+    <div class="skills-content">
+      <section class="skills">
+        <Heading as="h4">Skills</Heading>
+        <ul class="skills-list list">
+          {skills.map((skill) => (
+            <li class="skill-item">{skill}</li>
+          ))}
+        </ul>
+      </section>
+      <section class="tools">
+        <Heading as="h4">Tools</Heading>
+        <ul class="tools-list list">
+          {tools.map((tool) => (
+            <li class="tool-item">{tool}</li>
+          ))}
+        </ul>
+      </section>
+    </div>
+  </div>
+</section>
+
+<style>
+  .skills-content {
+    display: flex;
+    gap: 24px;
+  }
+  .list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    margin-top: 1.5rem;
+  }
+
+  .skills {
+    flex-basis: 55%;
+  }
+  .tools {
+    flex-basis: 45%;
+  }
+  .skill-item,
+  .tool-item {
+    padding: 8px 16px;
+    border-radius: var(--radius-full);
+  }
+  .skill-item {
+    background-color: #f1f5f9;
+    border: 1px solid var(--lines-grid-color);
+    color: var(--color-gray);
+    cursor: default;
+    transition: background-color 0.2s ease, border-color 0.2s ease, color 0.2s ease;
+  }
+  .skill-item:hover {
+    background-color: var(--lines-grid-color);
+    border-color: var(--color-gray);
+    color: var(--color-heading);
+  }
+  .tool-item {
+    background-color: var(--color-primary-5);
+    color: var(--color-primary);
+    border: 1px solid var(--color-primary-20);
+    cursor: default;
+    transition: background-color 0.2s ease, color 0.2s ease;
+  }
+  .tool-item:hover {
+    background-color: var(--color-primary);
+    color: #fff;
+  }
+
+  @media screen and (width <= 900px) {
+    .skills-content {
+      flex-direction: column;
+      gap: 32px;
+    }
+
+    .skills,
+    .tools {
+      flex-basis: auto;
+    }
+  }
+
+  @media screen and (width <= 480px) {
+    .skill-item,
+    .tool-item {
+      font-size: var(--font-7);
+      padding: 6px 12px;
+    }
+  }
+</style>

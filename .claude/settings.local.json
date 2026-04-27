@@ -1,0 +1,10 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(npm install:*)",
+      "WebSearch",
+      "WebFetch(domain:v3.tailwindcss.com)",
+      "Bash(node:*)"
+    ]
+  }
+}
