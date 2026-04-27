@@ -1,6 +1,7 @@
 ---
 import "../styles/global.css";
 import { ClientRouter } from "astro:transitions";
+import me from "../assets/me.png";
 ---
 
 <!doctype html>
@@ -8,10 +9,9 @@ import { ClientRouter } from "astro:transitions";
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width" />
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    <link rel="icon" href="/favicon.ico" />
+    <link rel="icon" type="image/png" href={me.src} />
     <meta name="generator" content={Astro.generator} />
-    <title>Astro Basics</title>
+    <title>Porfolio Web - RDZ</title>
     <ClientRouter />
   </head>
   <body>
@@ -40,7 +40,7 @@ import { ClientRouter } from "astro:transitions";
           }
         });
       },
-      { root, threshold: 0.1 }
+      { root, threshold: 0.1 },
     );
 
     elements.forEach((el) => observer.observe(el));
