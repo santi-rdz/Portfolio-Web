@@ -93,28 +93,39 @@ const { sections } = Astro.props;
     const links = document.querySelectorAll(".sidebar-link");
     const headerHeight = 130;
 
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            links.forEach((link) => link.classList.remove("active"));
-            const activeLink = document.querySelector(
-              `.sidebar-link[href="#${entry.target.id}"]`
-            );
-            if (activeLink) {
-              activeLink.classList.add("active");
-            }
-          }
-        });
-      },
-      { threshold: 0.3 }
-    );
+    function updateActiveLink() {
+      const headings = document.querySelectorAll(".resume-content h2, .resume-content h3");
+      let closestHeading = null;
+      let closestDistance = Infinity;
 
-    document.querySelectorAll(".resume-content h2, .resume-content h3").forEach((heading) => {
-      if (heading.id) {
-        observer.observe(heading);
+      headings.forEach((heading) => {
+        if (!heading.id) return;
+
+        const rect = heading.getBoundingClientRect();
+        const distance = Math.abs(rect.top - headerHeight);
+
+        if (distance < closestDistance) {
+          closestDistance = distance;
+          closestHeading = heading;
+        }
+      });
+
+      if (closestHeading) {
+        links.forEach((link) => link.classList.remove("active"));
+        const activeLink = document.querySelector(
+          `.sidebar-link[href="#${closestHeading.id}"]`
+        );
+        if (activeLink) {
+          activeLink.classList.add("active");
+        }
       }
-    });
+    }
+
+    // Initial check
+    updateActiveLink();
+
+    // Update on scroll
+    window.addEventListener("scroll", updateActiveLink);
 
     // Handle click navigation
     links.forEach((link) => {
