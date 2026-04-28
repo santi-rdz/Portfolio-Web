@@ -14,7 +14,9 @@ import resumeContent from "../assets/resume.md?raw";
       <div class="resume-header" data-animate="fade-up">
         <div class="resume-controls">
           <Link href="/" data-cta data-slide>&larr; Back</Link>
-          <button id="download-btn" class="download-btn" data-cta>Download</button>
+          <button id="download-btn" class="download-btn" data-cta
+            >Download</button
+          >
         </div>
       </div>
       <article class="resume-content">
@@ -22,7 +24,6 @@ import resumeContent from "../assets/resume.md?raw";
       </article>
     </div>
   </main>
-  <Footer />
 </Layout>
 
 <style>
@@ -181,58 +182,40 @@ import resumeContent from "../assets/resume.md?raw";
   }
 </style>
 
-<script type="module">
-  import { jsPDF } from "jspdf";
-  import html2canvas from "html2canvas";
-
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+<script>
   function initDownloadBtn() {
     const btn = document.getElementById("download-btn");
     if (!btn) return;
 
-    btn.addEventListener("click", async () => {
+    btn.addEventListener("click", () => {
       const element = document.querySelector(".resume-content");
       if (!element) return;
 
       btn.disabled = true;
       btn.textContent = "Generating...";
 
-      try {
-        const canvas = await html2canvas(element, {
-          scale: 2,
-          useCORS: true,
-          logging: false,
+      const options = {
+        margin: 10,
+        filename: "Raul_Rodriguez_Resume.pdf",
+        image: { type: "jpeg", quality: 0.98 },
+        html2canvas: { scale: 2 },
+        jsPDF: { orientation: "portrait", unit: "mm", format: "a4" },
+      };
+
+      html2pdf()
+        .set(options)
+        .from(element)
+        .save()
+        .then(() => {
+          btn.disabled = false;
+          btn.textContent = "Download";
+        })
+        .catch((error) => {
+          console.error("Error generating PDF:", error);
+          btn.disabled = false;
+          btn.textContent = "Download";
         });
-
-        const imgData = canvas.toDataURL("image/png");
-        const pdf = new jsPDF({
-          orientation: "portrait",
-          unit: "mm",
-          format: "a4",
-        });
-
-        const imgWidth = 210;
-        const pageHeight = 297;
-        const imgHeight = (canvas.height * imgWidth) / canvas.width;
-        let heightLeft = imgHeight;
-        let position = 0;
-
-        pdf.addImage(imgData, "PNG", 0, position, imgWidth, imgHeight);
-        heightLeft -= pageHeight;
-
-        while (heightLeft >= 0) {
-          position = heightLeft - imgHeight;
-          pdf.addPage();
-          pdf.addImage(imgData, "PNG", 0, position, imgWidth, imgHeight);
-          heightLeft -= pageHeight;
-        }
-
-        pdf.save("Raul_Rodriguez_Resume.pdf");
-      } catch (error) {
-        console.error("Error generating PDF:", error);
-      } finally {
-        btn.disabled = false;
-        btn.textContent = "Download";
-      }
     });
   }
 
