@@ -72,13 +72,13 @@ const { class: className, as, ...props } = Astro.props;
     font-size: var(--font-7);
     padding: 12px 16px;
   }
-  /* fill left → right */
+  /* fill left → right - keep same behavior as default CTA */
   .link[data-cta][data-slide]::before {
-    transform: scaleX(0);
-    transform-origin: left;
+    transform: scaleX(1);
+    transform-origin: center;
   }
   .link[data-cta][data-slide]:hover::before {
-    transform: scaleX(1);
+    transform: scaleX(0);
   }
   .link[data-cta]::after {
     display: none;
