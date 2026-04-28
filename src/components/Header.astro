@@ -122,16 +122,18 @@ import Link from "./ui/Link.astro";
 
     .nav-ul {
       display: none;
-      position: absolute;
-      top: 100%;
+      position: fixed;
+      top: 60px;
       left: 0;
       right: 0;
+      bottom: 0;
       flex-direction: column;
       align-items: flex-start;
       gap: 0.5rem;
-      background-color: transparent;
+      background-color: #fff;
       padding: 1.5rem 1rem;
-      padding-right: 1.5rem;
+      z-index: 15;
+      overflow-y: auto;
     }
 
     .nav-ul.is-open {
