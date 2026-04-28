@@ -8,10 +8,4 @@ interface Props {
 const { href = "/" } = Astro.props;
 ---
 
-<Link href={href} data-cta data-slide>&larr; Back</Link>
-
-<style>
-  :global([data-cta][data-slide]) {
-    width: fit-content;
-  }
-</style>
+<Link href={href}>&larr; Back</Link>
