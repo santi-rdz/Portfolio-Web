@@ -92,6 +92,27 @@ import Mail from "./icons/Mail.astro";
     z-index: 1;
   }
 
+  .media-links li:first-child a {
+    animation: swing 2s ease-in-out infinite;
+    transform-origin: top center;
+  }
+
+  @keyframes swing {
+    0%, 100% {
+      transform: rotate(0deg);
+    }
+    25% {
+      transform: rotate(-10deg);
+    }
+    75% {
+      transform: rotate(10deg);
+    }
+  }
+
+  .media-links li:first-child a:hover {
+    animation: none;
+  }
+
   @media screen and (width <= 1024px) {
     .media-links {
       display: none;
