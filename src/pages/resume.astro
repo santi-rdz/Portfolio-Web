@@ -70,55 +70,74 @@ import resumeContent from "../assets/resume.md?raw";
   }
 
   .resume-content {
-    font-size: var(--font-6);
+    font-size: 0.95rem;
     color: var(--color-gray);
-    line-height: 1.8;
+    line-height: 1.6;
   }
 
   .resume-content :global(h1) {
-    font-size: var(--font-1);
+    font-size: 1.75rem;
     font-weight: var(--font-bold);
     color: var(--color-heading);
     margin-top: 0;
-    margin-bottom: 0.5rem;
+    margin-bottom: 0.25rem;
+    letter-spacing: -0.5px;
+  }
+
+  .resume-content :global(h1 + p) {
+    margin-top: 0;
+    margin-bottom: 1rem;
+    font-size: 0.9rem;
+    color: var(--color-gray);
   }
 
   .resume-content :global(h2) {
-    font-size: var(--font-4);
+    font-size: 1.2rem;
     font-weight: var(--font-bold);
     color: var(--color-heading);
-    margin-top: 2rem;
-    margin-bottom: 1rem;
+    margin-top: 1.5rem;
+    margin-bottom: 0.75rem;
     padding-bottom: 0.5rem;
-    border-bottom: 1px solid var(--lines-grid-color);
+    border-bottom: 2px solid var(--color-primary);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    font-size: 0.95rem;
   }
 
   .resume-content :global(h3) {
-    font-size: var(--font-5);
+    font-size: 1rem;
     font-weight: var(--font-semibold);
     color: var(--color-heading);
-    margin-top: 1.5rem;
+    margin-top: 0.75rem;
+    margin-bottom: 0.25rem;
+  }
+
+  .resume-content :global(h3 + p) {
+    margin-top: 0;
+    font-size: 0.9rem;
+    color: var(--color-primary);
     margin-bottom: 0.5rem;
   }
 
   .resume-content :global(p) {
-    margin-bottom: 1rem;
+    margin-bottom: 0.75rem;
     text-wrap: balance;
   }
 
   .resume-content :global(ul) {
-    margin-left: 1.5rem;
-    margin-bottom: 1rem;
+    margin: 0.5rem 0 0.75rem 1.5rem;
+    padding: 0;
   }
 
   .resume-content :global(li) {
-    margin-bottom: 0.5rem;
+    margin-bottom: 0.35rem;
     list-style: disc;
+    color: var(--color-gray);
   }
 
   .resume-content :global(strong) {
     color: var(--color-heading);
-    font-weight: var(--font-semibold);
+    font-weight: 600;
   }
 
   .resume-content :global(em) {
@@ -133,14 +152,14 @@ import resumeContent from "../assets/resume.md?raw";
   }
 
   .resume-content :global(a:hover) {
-    opacity: 0.7;
+    opacity: 0.8;
     text-decoration: underline;
   }
 
   .resume-content :global(hr) {
     border: none;
     border-top: 1px solid var(--lines-grid-color);
-    margin: 2rem 0;
+    margin: 1rem 0;
   }
 
   @media screen and (width <= 768px) {
@@ -149,14 +168,22 @@ import resumeContent from "../assets/resume.md?raw";
       padding-bottom: 60px;
     }
 
+    .resume-container {
+      padding: 0 1rem;
+    }
+
+    .resume-content {
+      font-size: 0.9rem;
+    }
+
     .resume-content :global(h2) {
-      font-size: var(--font-5);
-      margin-top: 1.5rem;
+      font-size: 0.9rem;
+      margin-top: 1.25rem;
     }
 
     .resume-content :global(h3) {
-      font-size: var(--font-6);
-      margin-top: 1rem;
+      font-size: 0.95rem;
+      margin-top: 0.5rem;
     }
   }
 
@@ -166,12 +193,22 @@ import resumeContent from "../assets/resume.md?raw";
       padding-bottom: 48px;
     }
 
+    .resume-content {
+      font-size: 0.85rem;
+    }
+
     .resume-content :global(h1) {
-      font-size: var(--font-3);
+      font-size: 1.5rem;
     }
 
     .resume-content :global(h2) {
-      font-size: var(--font-5);
+      font-size: 0.85rem;
+      margin-top: 1rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .resume-content :global(ul) {
+      margin-left: 1.25rem;
     }
 
     .resume-controls {
