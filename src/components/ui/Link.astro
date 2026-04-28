@@ -65,6 +65,9 @@ const { class: className, as, ...props } = Astro.props;
     transform: translateY(-1px);
     box-shadow: 0 4px 12px rgba(37, 99, 235, 0.25);
   }
+  .link[data-cta]::after {
+    display: none;
+  }
   .link[data-mono] {
     font-family: "JetBrains", monospace;
   }
@@ -72,22 +75,52 @@ const { class: className, as, ...props } = Astro.props;
     font-size: var(--font-7);
     padding: 12px 16px;
   }
-  /* fill left → right - keep same behavior as default CTA */
-  .link[data-cta][data-slide]::before {
-    transform: scaleX(1);
-    transform-origin: center;
+
+  /* Button variant: fill from right to left */
+  .link[data-button] {
+    color: #fff;
+    border: 1.5px solid var(--color-primary);
+    padding: 11px 20px;
+    border-radius: var(--radius-md);
+    overflow: hidden;
+    font-weight: var(--font-semibold);
+    letter-spacing: 0.3px;
+    box-shadow: 0 2px 8px rgba(37, 99, 235, 0.15);
+    transition:
+      all 0.35s cubic-bezier(0.34, 1.56, 0.64, 1),
+      box-shadow 0.35s ease;
   }
-  .link[data-cta][data-slide]:hover::before {
+  .link[data-button][lg] {
+    padding: 16px 30px;
+  }
+  .link[data-button]::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background-color: var(--color-primary);
     transform: scaleX(0);
+    transform-origin: right;
+    transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+    z-index: -1;
+    border-radius: inherit;
   }
-  .link[data-cta]::after {
+  .link[data-button]:hover {
+    color: #fff;
+    box-shadow: 0 8px 20px rgba(37, 99, 235, 0.3);
+  }
+  .link[data-button]:hover::before {
+    transform: scaleX(1);
+  }
+  .link[data-button]::after {
     display: none;
   }
-  .link:hover {
+
+  /* Default link hover underline */
+  .link:not([data-cta]):not([data-button]):hover {
     color: var(--color-primary);
   }
 
-  .link::after {
+  .link:not([data-cta]):not([data-button])::after {
     content: "";
     position: absolute;
     width: 100%;
@@ -100,7 +133,7 @@ const { class: className, as, ...props } = Astro.props;
     transition: transform 0.4s ease;
   }
 
-  .link:hover::after {
+  .link:not([data-cta]):not([data-button]):hover::after {
     transform: scaleX(1);
   }
 </style>
