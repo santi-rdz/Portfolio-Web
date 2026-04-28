@@ -30,9 +30,11 @@ import Footer from "../components/Footer.astro";
 </html>
 
 <script>
+  let lastWidth = window.innerWidth;
+
   function initAnimations() {
-    const root = document.querySelector(".scroll-wrapper") ?? null;
     const elements = document.querySelectorAll("[data-animate]");
+    const isMobile = window.innerWidth <= 768;
 
     const observer = new IntersectionObserver(
       (entries) => {
@@ -42,11 +44,17 @@ import Footer from "../components/Footer.astro";
           }
         });
       },
-      { root, threshold: 0.1 },
+      { threshold: isMobile ? 0.05 : 0.1 },
     );
 
     elements.forEach((el) => observer.observe(el));
   }
 
   document.addEventListener("astro:page-load", initAnimations);
+  window.addEventListener("resize", () => {
+    if (window.innerWidth !== lastWidth) {
+      lastWidth = window.innerWidth;
+      initAnimations();
+    }
+  });
 </script>
