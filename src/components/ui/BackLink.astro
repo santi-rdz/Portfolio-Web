@@ -1,0 +1,17 @@
+---
+import Link from "./Link.astro";
+
+interface Props {
+  href?: string;
+}
+
+const { href = "/" } = Astro.props;
+---
+
+<Link href={href} data-cta data-slide>&larr; Back</Link>
+
+<style>
+  :global([data-cta][data-slide]) {
+    width: fit-content;
+  }
+</style>

@@ -2,7 +2,7 @@
 import Layout from "../layouts/Layout.astro";
 import Header from "../components/Header.astro";
 import Footer from "../components/Footer.astro";
-import Link from "../components/ui/Link.astro";
+import BackLink from "../components/ui/BackLink.astro";
 import ResumeSidebar from "../components/ResumeSidebar.astro";
 import { marked } from "marked";
 import resumeContent from "../assets/resume.md?raw";
@@ -40,7 +40,7 @@ const renderedContent = marked(resumeContent);
     <div class="container resume-container">
       <div class="resume-header" data-animate="fade-up">
         <div class="resume-controls">
-          <Link href="/" data-cta data-slide>&larr; Back</Link>
+          <BackLink href="/" />
           <button id="download-btn" class="download-btn" data-cta
             >Download</button
           >
