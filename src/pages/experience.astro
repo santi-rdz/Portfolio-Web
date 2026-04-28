@@ -2,8 +2,8 @@
 import Layout from "../layouts/Layout.astro";
 import Header from "../components/Header.astro";
 import Footer from "../components/Footer.astro";
-import Heading from "../components/Heading.astro";
-import Link from "../components/Link.astro";
+import PageHeader from "../components/ui/PageHeader.astro";
+import ExperienceItem from "../components/ui/ExperienceItem.astro";
 import { experience } from "../data/experience";
 ---
 
@@ -11,29 +11,18 @@ import { experience } from "../data/experience";
   <Header />
   <main class="experience-page">
     <div class="container experience-page-content">
-      <div class="experience-page-header" data-animate="fade-up">
-        <Link href="/#experience" data-cta data-slide>&larr; Back</Link>
-        <Heading as="h2">Experience</Heading>
-      </div>
+      <PageHeader backHref="/#experience" title="Experience" />
       <ul class="experience-list">
         {
           experience.map((exp, i) => (
-            <li class="experience-item" data-animate="fade-up" style={`--delay: ${i * 80}ms`}>
-              <header class="experience-item--header">
-                <div>
-                  <Heading as="h3">{exp.title}</Heading>
-                  {exp.duration && (
-                    <span class="experience-duration">Duration: {exp.duration}</span>
-                  )}
-                </div>
-                <span class="experience-source">{exp.learnSource}</span>
-              </header>
-              <ul class="experience-details">
-                {exp.details.map((detail) => (
-                  <li class="experience-detail">{detail}</li>
-                ))}
-              </ul>
-            </li>
+            <ExperienceItem
+              title={exp.title}
+              duration={exp.duration}
+              learnSource={exp.learnSource}
+              details={exp.details}
+              index={i}
+              delayStep={80}
+            />
           ))
         }
       </ul>
@@ -49,92 +38,8 @@ import { experience } from "../data/experience";
     padding-bottom: 80px;
   }
 
-  .experience-page-header {
-    display: flex;
-    flex-direction: column;
-    gap: 2rem;
-    margin-bottom: 2rem;
-  }
-
   .experience-list {
     display: flex;
     flex-direction: column;
-  }
-
-  .experience-item {
-    position: relative;
-    display: flex;
-    flex-direction: column;
-    gap: 1rem;
-    padding: 24px;
-    border-left: 1px solid var(--lines-grid-color);
-
-    &::before {
-      content: "";
-      position: absolute;
-      left: 0;
-      top: 24px;
-      width: 10px;
-      transform: translateX(-50%);
-      height: 10px;
-      border-radius: var(--radius-full);
-      border: 2px solid var(--color-primary);
-      background-color: #fff;
-    }
-  }
-
-  .experience-item + .experience-item {
-    border-top: 1px solid var(--lines-grid-color);
-  }
-
-  .experience-item--header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    gap: 1rem;
-  }
-
-  .experience-source {
-    font-size: var(--font-7);
-    color: var(--color-primary);
-    font-family: "JetBrains";
-  }
-
-  .experience-duration {
-    font-size: var(--font-7);
-    color: var(--color-gray);
-  }
-
-  .experience-details {
-    display: flex;
-    flex-direction: column;
-    line-height: 1.5;
-    font-size: var(--font-6);
-    color: var(--color-gray);
-  }
-
-  .experience-detail {
-    text-wrap: balance;
-  }
-
-  .experience-details li::before {
-    content: "•";
-    color: var(--color-primary);
-    display: inline-block;
-    width: 1ch;
-  }
-
-  @media screen and (width <= 768px) {
-    .experience-item--header {
-      flex-direction: column;
-      align-items: flex-start;
-      gap: 0.25rem;
-    }
-  }
-
-  @media screen and (width <= 480px) {
-    .experience-item {
-      padding: 16px;
-    }
   }
 </style>
