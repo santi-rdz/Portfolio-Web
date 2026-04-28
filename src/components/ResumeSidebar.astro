@@ -1,0 +1,107 @@
+---
+interface Props {
+  sections: { id: string; label: string }[];
+}
+
+const { sections } = Astro.props;
+---
+
+<aside class="resume-sidebar">
+  <nav class="sidebar-nav">
+    <ul class="sidebar-list">
+      {sections.map((section) => (
+        <li>
+          <a href={`#${section.id}`} class="sidebar-link">
+            {section.label}
+          </a>
+        </li>
+      ))}
+    </ul>
+  </nav>
+</aside>
+
+<style>
+  .resume-sidebar {
+    position: fixed;
+    left: 0;
+    top: 120px;
+    width: 200px;
+    height: calc(100vh - 120px);
+    overflow-y: auto;
+    padding-right: 1rem;
+    border-right: 1px solid var(--lines-grid-color);
+  }
+
+  .sidebar-nav {
+    padding: 1rem 0;
+  }
+
+  .sidebar-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .sidebar-link {
+    display: block;
+    padding: 0.5rem 1rem;
+    color: var(--color-gray);
+    text-decoration: none;
+    font-size: 0.9rem;
+    transition: color 0.2s ease, padding-left 0.2s ease;
+    border-left: 2px solid transparent;
+  }
+
+  .sidebar-link:hover {
+    color: var(--color-heading);
+    padding-left: 1.25rem;
+    border-left-color: var(--color-primary);
+  }
+
+  .sidebar-link.active {
+    color: var(--color-heading);
+    border-left-color: var(--color-primary);
+    padding-left: 1.25rem;
+    font-weight: 500;
+  }
+
+  @media screen and (width <= 1024px) {
+    .resume-sidebar {
+      display: none;
+    }
+  }
+</style>
+
+<script>
+  function initSidebarLinks() {
+    const links = document.querySelectorAll(".sidebar-link");
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            links.forEach((link) => link.classList.remove("active"));
+            const activeLink = document.querySelector(
+              `.sidebar-link[href="#${entry.target.id}"]`
+            );
+            if (activeLink) {
+              activeLink.classList.add("active");
+            }
+          }
+        });
+      },
+      { threshold: 0.5 }
+    );
+
+    document.querySelectorAll(".resume-content h2, .resume-content h3").forEach((heading) => {
+      if (heading.id) {
+        observer.observe(heading);
+      }
+    });
+  }
+
+  document.addEventListener("astro:page-load", initSidebarLinks);
+</script>

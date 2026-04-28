@@ -3,8 +3,17 @@ import Layout from "../layouts/Layout.astro";
 import Header from "../components/Header.astro";
 import Footer from "../components/Footer.astro";
 import Link from "../components/ui/Link.astro";
+import ResumeSidebar from "../components/ResumeSidebar.astro";
 import { marked } from "marked";
 import resumeContent from "../assets/resume.md?raw";
+
+const resumeSections = [
+  { id: "about", label: "About" },
+  { id: "skills", label: "Skills" },
+  { id: "featured-projects", label: "Projects" },
+  { id: "education", label: "Education" },
+  { id: "core-competencies", label: "Competencies" },
+];
 
 const slugify = (text: string) =>
   text
@@ -26,6 +35,7 @@ const renderedContent = marked(resumeContent);
 
 <Layout>
   <Header />
+  <ResumeSidebar sections={resumeSections} />
   <main class="resume-page">
     <div class="container resume-container">
       <div class="resume-header" data-animate="fade-up">
@@ -48,10 +58,17 @@ const renderedContent = marked(resumeContent);
     min-height: 100dvh;
     padding-top: 100px;
     padding-bottom: 80px;
+    margin-left: 240px;
   }
 
   .resume-container {
     max-width: 900px;
+  }
+
+  @media screen and (width <= 1024px) {
+    .resume-page {
+      margin-left: 0;
+    }
   }
 
   .resume-header {
