@@ -1,0 +1,37 @@
+---
+import Heading from "../ui/Heading.astro";
+import ProjectCard from "../ui/ProjectCard.astro";
+import ViewAllLink from "../ui/ViewAllLink.astro";
+import { projects } from "../../data/projects";
+
+const preview = projects.slice(0, 3);
+---
+
+<section id="projects" class="projects-scetion center-section">
+  <div class="container">
+    <Heading as="h2">Projects</Heading>
+    <ul class="project-list">
+      {
+        preview.map((project, i) => (
+          <ProjectCard project={project} index={i} maxTools={4} />
+        ))
+      }
+    </ul>
+    <ViewAllLink href="/projects">View All &rarr;</ViewAllLink>
+  </div>
+</section>
+
+<style>
+  .project-list {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    margin-top: 2rem;
+  }
+
+  @media screen and (width <= 768px) {
+    .project-list {
+      gap: 1.25rem;
+    }
+  }
+</style>

@@ -1,6 +1,6 @@
 ---
-import Heading from "./Heading.astro";
-import Link from "./Link.astro";
+import Heading from "../ui/Heading.astro";
+import Link from "../ui/Link.astro";
 ---
 
 <section id="contact" class="contact-section center-section">
@@ -12,7 +12,12 @@ import Link from "./Link.astro";
         I'm currently looking for new opportunities. Feel free to reach out!
       </p>
     </header>
-    <form action="" class="contact-form" data-animate="fade-up" style="--delay: 150ms">
+    <form
+      action=""
+      class="contact-form"
+      data-animate="fade-up"
+      style="--delay: 150ms"
+    >
       <label class="field">
         <span>Name</span>
         <input

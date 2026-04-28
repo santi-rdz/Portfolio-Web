@@ -1,5 +1,5 @@
 ---
-import Heading from "./Heading.astro";
+import Heading from "../ui/Heading.astro";
 
 const skills = [
   "Frontend Development",
@@ -44,17 +44,13 @@ const tools = [
       <section class="skills">
         <Heading as="h4">Skills</Heading>
         <ul class="skills-list list">
-          {skills.map((skill) => (
-            <li class="skill-item">{skill}</li>
-          ))}
+          {skills.map((skill) => <li class="skill-item">{skill}</li>)}
         </ul>
       </section>
       <section class="tools">
         <Heading as="h4">Tools</Heading>
         <ul class="tools-list list">
-          {tools.map((tool) => (
-            <li class="tool-item">{tool}</li>
-          ))}
+          {tools.map((tool) => <li class="tool-item">{tool}</li>)}
         </ul>
       </section>
     </div>
@@ -89,7 +85,10 @@ const tools = [
     border: 1px solid var(--lines-grid-color);
     color: var(--color-gray);
     cursor: default;
-    transition: background-color 0.2s ease, border-color 0.2s ease, color 0.2s ease;
+    transition:
+      background-color 0.2s ease,
+      border-color 0.2s ease,
+      color 0.2s ease;
   }
   .skill-item:hover {
     background-color: var(--lines-grid-color);
@@ -101,7 +100,9 @@ const tools = [
     color: var(--color-primary);
     border: 1px solid var(--color-primary-20);
     cursor: default;
-    transition: background-color 0.2s ease, color 0.2s ease;
+    transition:
+      background-color 0.2s ease,
+      color 0.2s ease;
   }
   .tool-item:hover {
     background-color: var(--color-primary);

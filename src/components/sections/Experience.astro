@@ -1,0 +1,35 @@
+---
+import Heading from "../ui/Heading.astro";
+import ExperienceItem from "../ui/ExperienceItem.astro";
+import ViewAllLink from "../ui/ViewAllLink.astro";
+import { experience } from "../../data/experience";
+
+const preview = experience.slice(0, 3);
+---
+
+<section id="experience" class="experience-section center-section">
+  <div class="experience-content container">
+    <Heading as="h2">Experience</Heading>
+    <ul class="experience-list">
+      {
+        preview.map((exp, i) => (
+          <ExperienceItem
+            title={exp.title}
+            duration={exp.duration}
+            learnSource={exp.learnSource}
+            details={exp.details}
+            index={i}
+          />
+        ))
+      }
+    </ul>
+    <ViewAllLink href="/experience">View All &rarr;</ViewAllLink>
+  </div>
+</section>
+
+<style>
+  .experience-list {
+    display: flex;
+    flex-direction: column;
+  }
+</style>
