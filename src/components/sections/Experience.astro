@@ -32,4 +32,10 @@ const preview = experience.slice(0, 3);
     display: flex;
     flex-direction: column;
   }
+
+  @media screen and (width <= 480px) {
+    .experience-list :nth-child(3) {
+      display: none;
+    }
+  }
 </style>

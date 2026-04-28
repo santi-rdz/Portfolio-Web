@@ -34,4 +34,10 @@ const preview = projects.slice(0, 3);
       gap: 1.25rem;
     }
   }
+
+  @media screen and (width <= 480px) {
+    .project-list :nth-child(3) {
+      display: none;
+    }
+  }
 </style>

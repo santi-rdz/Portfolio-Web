@@ -191,12 +191,11 @@ html {
     scroll-snap-align: none;
     scroll-snap-stop: unset;
     height: auto;
-    min-height: 100dvh;
+    min-height: auto;
   }
 
   .center-section {
     padding-block: 100px 80px;
-    align-items: flex-start;
   }
 
   .grid-lines {
@@ -207,7 +206,7 @@ html {
 /* ── Mobile ── */
 @media screen and (width <= 480px) {
   .center-section {
-    padding-block: 90px 60px;
+    padding-block: 60px;
   }
 }
 

@@ -1,7 +1,5 @@
 ---
 import Layout from "../layouts/Layout.astro";
-import Header from "../components/Header.astro";
-import Footer from "../components/Footer.astro";
 import BackLink from "../components/ui/BackLink.astro";
 import ResumeSidebar from "../components/ResumeSidebar.astro";
 import { marked } from "marked";
@@ -34,7 +32,6 @@ const renderedContent = marked(resumeContent);
 ---
 
 <Layout>
-  <Header />
   <ResumeSidebar sections={resumeSections} />
   <main class="resume-page">
     <div class="container resume-container">
@@ -267,7 +264,9 @@ const renderedContent = marked(resumeContent);
   }
 </style>
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+<script
+  src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"
+></script>
 <script>
   function initDownloadBtn() {
     const btn = document.getElementById("download-btn");
