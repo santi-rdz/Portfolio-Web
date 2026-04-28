@@ -93,39 +93,44 @@ const { sections } = Astro.props;
     const links = document.querySelectorAll(".sidebar-link");
     const headerHeight = 130;
 
-    function updateActiveLink() {
-      const headings = document.querySelectorAll(".resume-content h2, .resume-content h3");
-      let closestHeading = null;
-      let closestDistance = Infinity;
+    const observer = new IntersectionObserver(
+      (entries) => {
+        let topMostHeading = null;
+        let topMostDistance = Infinity;
 
-      headings.forEach((heading) => {
-        if (!heading.id) return;
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            const rect = entry.target.getBoundingClientRect();
+            const distance = Math.abs(rect.top - headerHeight);
 
-        const rect = heading.getBoundingClientRect();
-        const distance = Math.abs(rect.top - headerHeight);
+            if (distance < topMostDistance) {
+              topMostDistance = distance;
+              topMostHeading = entry.target;
+            }
+          }
+        });
 
-        if (distance < closestDistance) {
-          closestDistance = distance;
-          closestHeading = heading;
+        if (topMostHeading) {
+          links.forEach((link) => link.classList.remove("active"));
+          const activeLink = document.querySelector(
+            `.sidebar-link[href="#${topMostHeading.id}"]`
+          );
+          if (activeLink) {
+            activeLink.classList.add("active");
+          }
         }
-      });
-
-      if (closestHeading) {
-        links.forEach((link) => link.classList.remove("active"));
-        const activeLink = document.querySelector(
-          `.sidebar-link[href="#${closestHeading.id}"]`
-        );
-        if (activeLink) {
-          activeLink.classList.add("active");
-        }
+      },
+      {
+        threshold: [0, 0.25, 0.5, 0.75, 1],
+        rootMargin: `-${headerHeight}px 0px -66% 0px`,
       }
-    }
+    );
 
-    // Initial check
-    updateActiveLink();
-
-    // Update on scroll
-    window.addEventListener("scroll", updateActiveLink);
+    document.querySelectorAll(".resume-content h2, .resume-content h3").forEach((heading) => {
+      if (heading.id) {
+        observer.observe(heading);
+      }
+    });
 
     // Handle click navigation
     links.forEach((link) => {
