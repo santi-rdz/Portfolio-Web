@@ -1,0 +1,25 @@
+---
+import Link from "./Link.astro";
+import Heading from "./Heading.astro";
+
+interface Props {
+  backHref: string;
+  title: string;
+}
+
+const { backHref, title } = Astro.props;
+---
+
+<div class="page-header" data-animate="fade-up">
+  <Link href={backHref} data-cta data-slide>&larr; Back</Link>
+  <Heading as="h2">{title}</Heading>
+</div>
+
+<style>
+  .page-header {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    margin-bottom: 2rem;
+  }
+</style>

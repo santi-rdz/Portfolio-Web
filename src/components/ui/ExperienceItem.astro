@@ -1,0 +1,121 @@
+---
+import Heading from "./Heading.astro";
+
+interface Props {
+  title: string;
+  duration?: string;
+  learnSource: string;
+  details: string[];
+  index: number;
+  delayStep?: number;
+}
+
+const {
+  title,
+  duration,
+  learnSource,
+  details,
+  index,
+  delayStep = 100,
+} = Astro.props;
+---
+
+<li
+  class="experience-item"
+  data-animate="fade-up"
+  style={`--delay: ${index * delayStep}ms`}
+>
+  <header class="experience-item--header">
+    <div>
+      <Heading as="h3">{title}</Heading>
+      {
+        duration && (
+          <span class="experience-duration">Duration: {duration}</span>
+        )
+      }
+    </div>
+    <span class="experience-source">{learnSource}</span>
+  </header>
+  <ul class="experience-details">
+    {details.map((detail) => <li class="experience-detail">{detail}</li>)}
+  </ul>
+</li>
+
+<style>
+  .experience-item {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    padding: 24px;
+    border-left: 1px solid var(--lines-grid-color);
+
+    &::before {
+      content: "";
+      position: absolute;
+      left: 0;
+      top: 24px;
+      width: 10px;
+      transform: translateX(-50%);
+      height: 10px;
+      border-radius: var(--radius-full);
+      border: 2px solid var(--color-primary);
+      background-color: #fff;
+    }
+  }
+
+  .experience-item + .experience-item {
+    border-top: 1px solid var(--lines-grid-color);
+  }
+
+  .experience-item--header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1rem;
+  }
+
+  .experience-source {
+    font-size: var(--font-7);
+    color: var(--color-primary);
+    font-family: "JetBrains";
+  }
+
+  .experience-duration {
+    font-size: var(--font-7);
+    color: var(--color-gray);
+  }
+
+  .experience-details {
+    display: flex;
+    flex-direction: column;
+    line-height: 1.5;
+    font-size: var(--font-6);
+    color: var(--color-gray);
+  }
+
+  .experience-detail {
+    text-wrap: balance;
+  }
+
+  .experience-details li::before {
+    content: "•";
+    color: var(--color-primary);
+    display: inline-block;
+    width: 1ch;
+  }
+
+  @media screen and (width <= 768px) {
+    .experience-item--header {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 0.25rem;
+    }
+  }
+
+  @media screen and (width <= 480px) {
+    .experience-item {
+      padding: 16px;
+    }
+  }
+</style>
