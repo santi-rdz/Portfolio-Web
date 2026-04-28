@@ -5,6 +5,23 @@ import Footer from "../components/Footer.astro";
 import Link from "../components/ui/Link.astro";
 import { marked } from "marked";
 import resumeContent from "../assets/resume.md?raw";
+
+const slugify = (text: string) =>
+  text
+    .toLowerCase()
+    .trim()
+    .replace(/[^\w\s-]/g, "")
+    .replace(/\s+/g, "-")
+    .replace(/-+/g, "-");
+
+const renderer = new marked.Renderer();
+renderer.heading = ({ text, depth }) => {
+  const slug = slugify(text);
+  return `<h${depth} id="${slug}">${text}</h${depth}>`;
+};
+
+marked.setOptions({ renderer });
+const renderedContent = marked(resumeContent);
 ---
 
 <Layout>
@@ -20,7 +37,7 @@ import resumeContent from "../assets/resume.md?raw";
         </div>
       </div>
       <article class="resume-content">
-        <Fragment set:html={marked(resumeContent)} />
+        <Fragment set:html={renderedContent} />
       </article>
     </div>
   </main>
