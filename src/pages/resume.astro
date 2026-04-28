@@ -12,7 +12,10 @@ import resumeContent from "../assets/resume.md?raw";
   <main class="resume-page">
     <div class="container resume-container">
       <div class="resume-header" data-animate="fade-up">
-        <Link href="/" data-cta data-slide>&larr; Back</Link>
+        <div class="resume-controls">
+          <Link href="/" data-cta data-slide>&larr; Back</Link>
+          <button id="download-btn" class="download-btn" data-cta>Download</button>
+        </div>
       </div>
       <article class="resume-content">
         <Fragment set:html={marked(resumeContent)} />
@@ -35,6 +38,29 @@ import resumeContent from "../assets/resume.md?raw";
 
   .resume-header {
     margin-bottom: 2rem;
+  }
+
+  .resume-controls {
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+  }
+
+  .download-btn {
+    padding: 10px 18px;
+    border: 1px solid var(--color-primary);
+    background-color: var(--color-primary);
+    color: #fff;
+    border-radius: var(--radius-md);
+    cursor: pointer;
+    font-family: "JetBrains", monospace;
+    font-size: var(--font-7);
+    transition: background-color 0.3s ease;
+  }
+
+  .download-btn:hover {
+    background-color: var(--color-primary);
+    opacity: 0.8;
   }
 
   .resume-content {
@@ -141,5 +167,34 @@ import resumeContent from "../assets/resume.md?raw";
     .resume-content :global(h2) {
       font-size: var(--font-5);
     }
+
+    .resume-controls {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 0.75rem;
+    }
   }
 </style>
+
+<script>
+  function initDownloadBtn() {
+    const btn = document.getElementById("download-btn");
+    if (!btn) return;
+
+    btn.addEventListener("click", () => {
+      const content = `Raul Rodriguez - Frontend Developer Resume
+
+${document.body.innerText}`;
+
+      const blob = new Blob([content], { type: "text/plain" });
+      const url = URL.createObjectURL(blob);
+      const link = document.createElement("a");
+      link.href = url;
+      link.download = "Raul_Rodriguez_Resume.txt";
+      link.click();
+      URL.revokeObjectURL(url);
+    });
+  }
+
+  document.addEventListener("astro:page-load", initDownloadBtn);
+</script>
