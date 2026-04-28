@@ -8,4 +8,12 @@ interface Props {
 const { href = "/" } = Astro.props;
 ---
 
-<Link href={href}>&larr; Back</Link>
+<div class="back-link-wrapper">
+  <Link href={href}>&larr; Back</Link>
+</div>
+
+<style>
+  .back-link-wrapper {
+    width: fit-content;
+  }
+</style>
