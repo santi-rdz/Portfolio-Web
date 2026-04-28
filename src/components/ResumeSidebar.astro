@@ -93,46 +93,11 @@ const { sections } = Astro.props;
     const links = document.querySelectorAll(".sidebar-link");
     const headerHeight = 130;
 
-    const observer = new IntersectionObserver(
-      (entries) => {
-        let topMostHeading = null;
-        let topMostDistance = Infinity;
+    // Set first link as active on page load
+    if (links.length > 0) {
+      links[0].classList.add("active");
+    }
 
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            const rect = entry.target.getBoundingClientRect();
-            const distance = Math.abs(rect.top - headerHeight);
-
-            if (distance < topMostDistance) {
-              topMostDistance = distance;
-              topMostHeading = entry.target;
-            }
-          }
-        });
-
-        if (topMostHeading) {
-          links.forEach((link) => link.classList.remove("active"));
-          const activeLink = document.querySelector(
-            `.sidebar-link[href="#${topMostHeading.id}"]`
-          );
-          if (activeLink) {
-            activeLink.classList.add("active");
-          }
-        }
-      },
-      {
-        threshold: [0, 0.25, 0.5, 0.75, 1],
-        rootMargin: `-${headerHeight}px 0px -66% 0px`,
-      }
-    );
-
-    document.querySelectorAll(".resume-content h2, .resume-content h3").forEach((heading) => {
-      if (heading.id) {
-        observer.observe(heading);
-      }
-    });
-
-    // Handle click navigation
     links.forEach((link) => {
       link.addEventListener("click", (e) => {
         e.preventDefault();
@@ -143,11 +108,11 @@ const { sections } = Astro.props;
         const target = document.getElementById(targetId);
 
         if (target) {
-          // Mark as active immediately on click
+          // Mark as active
           links.forEach((l) => l.classList.remove("active"));
           link.classList.add("active");
 
-          // Then scroll to the section
+          // Scroll to section
           const targetPosition = target.getBoundingClientRect().top + window.scrollY - headerHeight;
           window.scrollTo({
             top: targetPosition,
