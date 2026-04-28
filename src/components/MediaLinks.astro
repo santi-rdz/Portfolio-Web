@@ -34,7 +34,7 @@ import Mail from "./icons/Mail.astro";
 <style>
   .media-links {
     position: fixed;
-    bottom: 0;
+    bottom: 40px;
     right: 40px;
     z-index: 10;
   }
@@ -55,7 +55,9 @@ import Mail from "./icons/Mail.astro";
     padding: 8px;
     border-radius: var(--radius-md);
     position: relative;
-    transition: color 0.3s ease, transform 0.3s ease;
+    transition:
+      color 0.3s ease,
+      transform 0.3s ease;
   }
 
   .media-links a:hover {
@@ -71,7 +73,9 @@ import Mail from "./icons/Mail.astro";
     background-color: var(--color-primary-20);
     opacity: 0;
     transform: scale(0.7);
-    transition: opacity 0.3s ease, transform 0.3s ease;
+    transition:
+      opacity 0.3s ease,
+      transform 0.3s ease;
   }
 
   .media-links a:hover::before {
@@ -81,7 +85,7 @@ import Mail from "./icons/Mail.astro";
 
   .bar {
     width: 2px;
-    height: 100px;
+    height: 60px;
     background-color: var(--lines-grid-color);
     margin: 0 auto;
   }
@@ -98,7 +102,8 @@ import Mail from "./icons/Mail.astro";
   }
 
   @keyframes swing {
-    0%, 100% {
+    0%,
+    100% {
       transform: rotate(0deg);
     }
     25% {
