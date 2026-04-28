@@ -162,6 +162,14 @@ import resumeContent from "../assets/resume.md?raw";
     margin: 1rem 0;
   }
 
+  .resume-content :global(mark) {
+    background-color: var(--color-primary);
+    color: #fff;
+    padding: 0.15rem 0.4rem;
+    border-radius: 4px;
+    font-weight: 600;
+  }
+
   @media screen and (width <= 768px) {
     .resume-page {
       padding-top: 90px;

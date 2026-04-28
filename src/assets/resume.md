@@ -14,11 +14,11 @@ Software Engineering student at UABC with expertise in full-stack development. B
 
 ## Skills
 
-**Frontend**: HTML5, CSS3 (Grid, Flexbox), JavaScript (ES6+), React, Astro  
-**Backend**: Node.js, Express, REST APIs, MySQL, Prisma, Authentication  
-**Technologies**: Git, Figma, VS Code, Postman  
-**Concepts**: Responsive Design, Web Accessibility, Performance Optimization, Component Architecture, API Design  
-**Languages**: JavaScript, C | English (B2)
+**Frontend**: React, Astro, JavaScript (ES6+), HTML5, CSS3, TailwindCSS  
+**Backend**: Node.js, Express, MySQL, Prisma, REST APIs  
+**Tools**: Git, Vite, Fetch API, Zod, Docker  
+**Concepts**: Responsive Design, Web Accessibility, Component Architecture, API Design  
+**Languages**: JavaScript, C | <mark>English (B2)</mark>
 
 ---
 
