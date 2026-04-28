@@ -58,10 +58,17 @@ const renderedContent = marked(resumeContent);
     min-height: 100dvh;
     padding-top: 100px;
     padding-bottom: 80px;
+    margin-left: 190px;
   }
 
   .resume-container {
     max-width: 900px;
+  }
+
+  @media screen and (width <= 1200px) {
+    .resume-page {
+      margin-left: 0;
+    }
   }
 
   .resume-header {
