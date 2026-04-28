@@ -8,7 +8,7 @@
 
 ## About
 
-Software Engineering student at UABC with expertise in full-stack development. Building responsive, accessible web applications and RESTful backends with modern technologies. Strong foundation in component-based architecture, API design, and JavaScript.
+Software Engineering student at UABC with expertise in <mark>full-stack development</mark>. Building responsive, accessible web applications and RESTful backends with modern technologies. Strong foundation in component-based architecture, API design, and JavaScript.
 
 ---
 
@@ -25,7 +25,7 @@ Software Engineering student at UABC with expertise in full-stack development. B
 ## Featured Projects
 
 **CAIS** — Patient Evolution System  
-React, Node.js, Express, MySQL, Prisma | Patient management dashboard with authentication
+React, Node.js, Express, MySQL, Prisma | Patient management dashboard with <mark>authentication</mark>
 
 **Recipe Finder** — Recipe Discovery App  
 React, Tailwind CSS, Spoonacular API | Search and filter recipes with real-time data
@@ -55,10 +55,10 @@ Astro, CSS3 | Fast, optimized portfolio with smooth animations
 
 ## Core Competencies
 
-- Full-Stack Web Development
+- <mark>Full-Stack Web Development</mark>
 - Component-Based Architecture
 - Responsive & Accessible UI Development
-- RESTful API Design & Integration
+- <mark>RESTful API Design & Integration</mark>
 - Database Design & SQL
 - Version Control (Git/GitHub)
 - Modern CSS Architecture
