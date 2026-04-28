@@ -1,0 +1,145 @@
+---
+import Layout from "../layouts/Layout.astro";
+import Header from "../components/Header.astro";
+import Footer from "../components/Footer.astro";
+import Link from "../components/ui/Link.astro";
+import { marked } from "marked";
+import resumeContent from "../assets/resume.md?raw";
+---
+
+<Layout>
+  <Header />
+  <main class="resume-page">
+    <div class="container resume-container">
+      <div class="resume-header" data-animate="fade-up">
+        <Link href="/" data-cta data-slide>&larr; Back</Link>
+      </div>
+      <article class="resume-content">
+        <Fragment set:html={marked(resumeContent)} />
+      </article>
+    </div>
+  </main>
+  <Footer />
+</Layout>
+
+<style>
+  .resume-page {
+    min-height: 100dvh;
+    padding-top: 100px;
+    padding-bottom: 80px;
+  }
+
+  .resume-container {
+    max-width: 900px;
+  }
+
+  .resume-header {
+    margin-bottom: 2rem;
+  }
+
+  .resume-content {
+    font-size: var(--font-6);
+    color: var(--color-gray);
+    line-height: 1.8;
+  }
+
+  .resume-content :global(h1) {
+    font-size: var(--font-1);
+    font-weight: var(--font-bold);
+    color: var(--color-heading);
+    margin-top: 0;
+    margin-bottom: 0.5rem;
+  }
+
+  .resume-content :global(h2) {
+    font-size: var(--font-4);
+    font-weight: var(--font-bold);
+    color: var(--color-heading);
+    margin-top: 2rem;
+    margin-bottom: 1rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 1px solid var(--lines-grid-color);
+  }
+
+  .resume-content :global(h3) {
+    font-size: var(--font-5);
+    font-weight: var(--font-semibold);
+    color: var(--color-heading);
+    margin-top: 1.5rem;
+    margin-bottom: 0.5rem;
+  }
+
+  .resume-content :global(p) {
+    margin-bottom: 1rem;
+    text-wrap: balance;
+  }
+
+  .resume-content :global(ul) {
+    margin-left: 1.5rem;
+    margin-bottom: 1rem;
+  }
+
+  .resume-content :global(li) {
+    margin-bottom: 0.5rem;
+    list-style: disc;
+  }
+
+  .resume-content :global(strong) {
+    color: var(--color-heading);
+    font-weight: var(--font-semibold);
+  }
+
+  .resume-content :global(em) {
+    color: var(--color-primary);
+    font-style: italic;
+  }
+
+  .resume-content :global(a) {
+    color: var(--color-primary);
+    text-decoration: none;
+    transition: opacity 0.2s ease;
+  }
+
+  .resume-content :global(a:hover) {
+    opacity: 0.7;
+    text-decoration: underline;
+  }
+
+  .resume-content :global(hr) {
+    border: none;
+    border-top: 1px solid var(--lines-grid-color);
+    margin: 2rem 0;
+  }
+
+  @media screen and (width <= 768px) {
+    .resume-page {
+      padding-top: 90px;
+      padding-bottom: 60px;
+    }
+
+    .resume-content :global(h2) {
+      font-size: var(--font-5);
+      margin-top: 1.5rem;
+    }
+
+    .resume-content :global(h3) {
+      font-size: var(--font-6);
+      margin-top: 1rem;
+    }
+  }
+
+  @media screen and (width <= 480px) {
+    .resume-page {
+      padding-top: 80px;
+      padding-bottom: 48px;
+    }
+
+    .resume-content :global(h1) {
+      font-size: var(--font-3);
+    }
+
+    .resume-content :global(h2) {
+      font-size: var(--font-5);
+    }
+  }
+</style>
