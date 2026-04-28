@@ -40,7 +40,7 @@ const { class: className, as, ...props } = Astro.props;
   .link[data-cta][lg] {
     padding: 16px 30px;
   }
-  /* Animated fill effect */
+  /* Animated fill effect - Default: inverted (filled by default) */
   .link[data-cta]::before {
     content: "";
     position: absolute;
@@ -64,6 +64,36 @@ const { class: className, as, ...props } = Astro.props;
   .link[data-cta]:active {
     transform: translateY(-1px);
     box-shadow: 0 4px 12px rgba(37, 99, 235, 0.25);
+  }
+
+  /* Fill left → right on hover */
+  .link[data-cta][data-fill="left-to-right"]::before {
+    transform: scaleX(0);
+    transform-origin: left;
+  }
+  .link[data-cta][data-fill="left-to-right"]:hover {
+    color: #fff;
+    border-color: var(--color-primary);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(37, 99, 235, 0.3);
+  }
+  .link[data-cta][data-fill="left-to-right"]:hover::before {
+    transform: scaleX(1);
+  }
+
+  /* Fill bottom → top on hover */
+  .link[data-cta][data-fill="bottom-to-up"]::before {
+    transform: scaleY(0);
+    transform-origin: bottom;
+  }
+  .link[data-cta][data-fill="bottom-to-up"]:hover {
+    color: #fff;
+    border-color: var(--color-primary);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(37, 99, 235, 0.3);
+  }
+  .link[data-cta][data-fill="bottom-to-up"]:hover::before {
+    transform: scaleY(1);
   }
   .link[data-cta]::after {
     display: none;
