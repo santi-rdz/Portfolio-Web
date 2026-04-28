@@ -143,6 +143,11 @@ const { sections } = Astro.props;
         const target = document.getElementById(targetId);
 
         if (target) {
+          // Mark as active immediately on click
+          links.forEach((l) => l.classList.remove("active"));
+          link.classList.add("active");
+
+          // Then scroll to the section
           const targetPosition = target.getBoundingClientRect().top + window.scrollY - headerHeight;
           window.scrollTo({
             top: targetPosition,
