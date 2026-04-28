@@ -91,6 +91,7 @@ const { sections } = Astro.props;
 <script>
   function initSidebarLinks() {
     const links = document.querySelectorAll(".sidebar-link");
+    const headerHeight = 130;
 
     const observer = new IntersectionObserver(
       (entries) => {
@@ -106,13 +107,33 @@ const { sections } = Astro.props;
           }
         });
       },
-      { threshold: 0.5 }
+      { threshold: 0.3 }
     );
 
     document.querySelectorAll(".resume-content h2, .resume-content h3").forEach((heading) => {
       if (heading.id) {
         observer.observe(heading);
       }
+    });
+
+    // Handle click navigation
+    links.forEach((link) => {
+      link.addEventListener("click", (e) => {
+        e.preventDefault();
+        const href = link.getAttribute("href");
+        if (!href) return;
+
+        const targetId = href.slice(1);
+        const target = document.getElementById(targetId);
+
+        if (target) {
+          const targetPosition = target.getBoundingClientRect().top + window.scrollY - headerHeight;
+          window.scrollTo({
+            top: targetPosition,
+            behavior: "smooth",
+          });
+        }
+      });
     });
   }
 
