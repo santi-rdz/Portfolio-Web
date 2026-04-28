@@ -23,6 +23,7 @@ const { class: className, as, ...props } = Astro.props;
     cursor: pointer;
     position: relative;
   }
+  /* CTA Base - Default: filled by default (inverted effect) */
   .link[data-cta] {
     color: #fff;
     border: 1.5px solid transparent;
@@ -40,7 +41,6 @@ const { class: className, as, ...props } = Astro.props;
   .link[data-cta][lg] {
     padding: 16px 30px;
   }
-  /* Animated fill effect - Default: inverted (filled by default) */
   .link[data-cta]::before {
     content: "";
     position: absolute;
@@ -52,28 +52,34 @@ const { class: className, as, ...props } = Astro.props;
     z-index: -1;
     border-radius: inherit;
   }
-  .link[data-cta]:hover {
+  /* Default hover: fill disappears, shows outline */
+  .link[data-cta]:not([data-fill]):hover {
     color: var(--color-primary);
     border-color: var(--color-primary);
     transform: translateY(0px);
     box-shadow: 0 2px 8px rgba(37, 99, 235, 0);
   }
-  .link[data-cta]:hover::before {
+  .link[data-cta]:not([data-fill]):hover::before {
     transform: scaleX(0);
   }
-  .link[data-cta]:active {
+  .link[data-cta]:not([data-fill]):active {
     transform: translateY(-1px);
     box-shadow: 0 4px 12px rgba(37, 99, 235, 0.25);
   }
 
   /* Fill left → right on hover */
+  .link[data-cta][data-fill="left-to-right"] {
+    color: var(--color-primary);
+    border-color: var(--color-primary);
+    box-shadow: 0 2px 8px rgba(37, 99, 235, 0.15);
+    transform: translateY(0px);
+  }
   .link[data-cta][data-fill="left-to-right"]::before {
     transform: scaleX(0);
     transform-origin: left;
   }
   .link[data-cta][data-fill="left-to-right"]:hover {
     color: #fff;
-    border-color: var(--color-primary);
     transform: translateY(-2px);
     box-shadow: 0 8px 20px rgba(37, 99, 235, 0.3);
   }
@@ -82,13 +88,18 @@ const { class: className, as, ...props } = Astro.props;
   }
 
   /* Fill bottom → top on hover */
+  .link[data-cta][data-fill="bottom-to-up"] {
+    color: var(--color-primary);
+    border-color: var(--color-primary);
+    box-shadow: 0 2px 8px rgba(37, 99, 235, 0.15);
+    transform: translateY(0px);
+  }
   .link[data-cta][data-fill="bottom-to-up"]::before {
     transform: scaleY(0);
     transform-origin: bottom;
   }
   .link[data-cta][data-fill="bottom-to-up"]:hover {
     color: #fff;
-    border-color: var(--color-primary);
     transform: translateY(-2px);
     box-shadow: 0 8px 20px rgba(37, 99, 235, 0.3);
   }
