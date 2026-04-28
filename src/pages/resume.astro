@@ -63,6 +63,11 @@ import resumeContent from "../assets/resume.md?raw";
     opacity: 0.8;
   }
 
+  .download-btn:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+  }
+
   .resume-content {
     font-size: var(--font-6);
     color: var(--color-gray);
@@ -176,23 +181,58 @@ import resumeContent from "../assets/resume.md?raw";
   }
 </style>
 
-<script>
+<script type="module">
+  import { jsPDF } from "jspdf";
+  import html2canvas from "html2canvas";
+
   function initDownloadBtn() {
     const btn = document.getElementById("download-btn");
     if (!btn) return;
 
-    btn.addEventListener("click", () => {
-      const content = `Raul Rodriguez - Frontend Developer Resume
+    btn.addEventListener("click", async () => {
+      const element = document.querySelector(".resume-content");
+      if (!element) return;
 
-${document.body.innerText}`;
+      btn.disabled = true;
+      btn.textContent = "Generating...";
 
-      const blob = new Blob([content], { type: "text/plain" });
-      const url = URL.createObjectURL(blob);
-      const link = document.createElement("a");
-      link.href = url;
-      link.download = "Raul_Rodriguez_Resume.txt";
-      link.click();
-      URL.revokeObjectURL(url);
+      try {
+        const canvas = await html2canvas(element, {
+          scale: 2,
+          useCORS: true,
+          logging: false,
+        });
+
+        const imgData = canvas.toDataURL("image/png");
+        const pdf = new jsPDF({
+          orientation: "portrait",
+          unit: "mm",
+          format: "a4",
+        });
+
+        const imgWidth = 210;
+        const pageHeight = 297;
+        const imgHeight = (canvas.height * imgWidth) / canvas.width;
+        let heightLeft = imgHeight;
+        let position = 0;
+
+        pdf.addImage(imgData, "PNG", 0, position, imgWidth, imgHeight);
+        heightLeft -= pageHeight;
+
+        while (heightLeft >= 0) {
+          position = heightLeft - imgHeight;
+          pdf.addPage();
+          pdf.addImage(imgData, "PNG", 0, position, imgWidth, imgHeight);
+          heightLeft -= pageHeight;
+        }
+
+        pdf.save("Raul_Rodriguez_Resume.pdf");
+      } catch (error) {
+        console.error("Error generating PDF:", error);
+      } finally {
+        btn.disabled = false;
+        btn.textContent = "Download";
+      }
     });
   }
 
