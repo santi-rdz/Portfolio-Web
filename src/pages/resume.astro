@@ -196,11 +196,23 @@ import resumeContent from "../assets/resume.md?raw";
       btn.textContent = "Generating...";
 
       const options = {
-        margin: 10,
+        margin: [0.5, 0.75, 0.5, 0.75],
         filename: "Raul_Rodriguez_Resume.pdf",
         image: { type: "jpeg", quality: 0.98 },
-        html2canvas: { scale: 2 },
-        jsPDF: { orientation: "portrait", unit: "mm", format: "a4" },
+        html2canvas: {
+          scale: 2,
+          useCORS: true,
+          logging: false,
+        },
+        jsPDF: {
+          orientation: "portrait",
+          unit: "in",
+          format: "letter",
+        },
+        pagebreak: {
+          mode: ["avoid-all", "css"],
+          avoid: ["h2", "h3", ".resume-content ul"],
+        },
       };
 
       html2pdf()
@@ -212,9 +224,10 @@ import resumeContent from "../assets/resume.md?raw";
           btn.textContent = "Download";
         })
         .catch((error) => {
-          console.error("Error generating PDF:", error);
+          console.error("PDF Error:", error.message);
           btn.disabled = false;
           btn.textContent = "Download";
+          alert("Failed to generate PDF");
         });
     });
   }
