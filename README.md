@@ -1,46 +1,97 @@
-# Astro Starter Kit: Basics
+# Portfolio Web - Raul Rodriguez
 
-```sh
-npm create astro@latest -- --template basics
-```
+Personal portfolio website built with **Astro**, **TailwindCSS**, and modern web technologies.
 
-> 🧑‍🚀 **Seasoned astronaut?** Delete this file. Have fun!
+Live: [portfolio-rdz.vercel.app](https://portfolio-rdz.vercel.app)
+
+## 🎯 Features
+
+- **Fast & Optimized** — Astro static generation with minimal JavaScript
+- **Responsive Design** — Mobile-first approach with TailwindCSS
+- **Modern Stack** — Semantic HTML, CSS Grid/Flexbox, ES6+
+- **Smooth Animations** — Intersection Observer-based scroll animations
+- **Dark-aware Typography** — Custom font system (Outfit + JetBrains Mono)
 
 ## 🚀 Project Structure
 
-Inside of your Astro project, you'll see the following folders and files:
-
 ```text
-/
-├── public/
-│   └── favicon.svg
-├── src
-│   ├── assets
-│   │   └── astro.svg
-│   ├── components
-│   │   └── Welcome.astro
-│   ├── layouts
-│   │   └── Layout.astro
-│   └── pages
-│       └── index.astro
-└── package.json
+src/
+├── assets/              # Images and static files
+├── components/
+│   ├── sections/        # Page sections (Hero, About, Experience, etc.)
+│   ├── ui/              # Reusable UI components (Heading, Link, ExperienceItem, etc.)
+│   ├── icons/           # SVG icons
+│   ├── Header.astro
+│   ├── Footer.astro
+│   └── MediaLinks.astro
+├── layouts/
+│   └── Layout.astro     # Base layout with animations
+├── pages/               # Route pages
+│   ├── index.astro
+│   ├── experience.astro
+│   └── projects.astro
+├── data/
+│   ├── projects.ts      # Projects data
+│   └── experience.ts    # Experience/learning data
+└── styles/
+    └── global.css       # Design tokens & animations
 ```
-
-To learn more about the folder structure of an Astro project, refer to [our guide on project structure](https://docs.astro.build/en/basics/project-structure/).
 
 ## 🧞 Commands
 
-All commands are run from the root of the project, from a terminal:
+| Command | Action |
+|---------|--------|
+| `npm install` | Install dependencies |
+| `npm run dev` | Start dev server at `localhost:4321` |
+| `npm run build` | Build to `./dist/` |
+| `npm run preview` | Preview production build |
+| `npm run format` | Format code with Prettier |
 
-| Command                   | Action                                           |
-| :------------------------ | :----------------------------------------------- |
-| `npm install`             | Installs dependencies                            |
-| `npm run dev`             | Starts local dev server at `localhost:4321`      |
-| `npm run build`           | Build your production site to `./dist/`          |
-| `npm run preview`         | Preview your build locally, before deploying     |
-| `npm run astro ...`       | Run CLI commands like `astro add`, `astro check` |
-| `npm run astro -- --help` | Get help using the Astro CLI                     |
+## 🛠️ Tech Stack
 
-## 👀 Want to learn more?
+**Frontend:**
+- Astro
+- TailwindCSS
+- TypeScript
+- Semantic HTML5
 
-Feel free to check [our documentation](https://docs.astro.build) or jump into our [Discord server](https://astro.build/chat).
+**Styling:**
+- CSS Grid & Flexbox
+- CSS Variables (design tokens)
+- Responsive design (mobile-first)
+
+**Tools:**
+- Vite (build)
+- Prettier (formatting)
+
+## 📝 Content Management
+
+Data is stored in `/src/data/`:
+- **projects.ts** — Edit projects, tools, links
+- **experience.ts** — Add learning experiences
+
+Component files:
+- **src/components/ui/ExperienceItem.astro** — Reusable experience item
+- **src/components/ui/ProjectCard.astro** — Reusable project card
+
+## 🎨 Design Tokens
+
+Located in `/src/styles/global.css`:
+- **Colors** — Primary, gray palette, semantic colors
+- **Spacing** — Responsive font sizes with `clamp()`
+- **Radius** — Border radius scale
+- **Shadows** — Elevation system
+- **Animations** — Scroll-triggered fade effects
+
+## 🚀 Deployment
+
+Hosted on **Vercel**. Deploys automatically on push to `main`.
+
+```bash
+npm run build  # Build static site
+# Deploy ./dist/ to production
+```
+
+## 📄 License
+
+© 2025 Raul Rodriguez. All rights reserved.
