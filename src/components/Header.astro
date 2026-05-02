@@ -6,7 +6,7 @@ import Mail from "./icons/Mail.astro";
 ---
 
 <header class="main-header">
-  <nav class="nav lg-container">
+  <nav class="nav lg-container" aria-label="Main">
     <a href="/" class="logo">&lt;RR /&gt;</a>
     <button
       class="nav-toggle"
@@ -30,13 +30,13 @@ import Mail from "./icons/Mail.astro";
         <Link href="/resume" data-cta data-fill="bottom-to-up">Resume</Link>
       </li>
       <li class="nav-socials">
-        <a href="https://github.com/santi-rdz" target="_blank" rel="noopener noreferrer">
+        <a href="https://github.com/santi-rdz" target="_blank" rel="noopener noreferrer" aria-label="GitHub profile">
           <Github />
         </a>
-        <a href="https://linkedin.com/in/raul-rodriguez-169911369" target="_blank" rel="noopener noreferrer">
+        <a href="https://linkedin.com/in/raul-rodriguez-169911369" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn profile">
           <Linkedin />
         </a>
-        <a href="mailto:raul2003santiago@gmail.com" target="_blank" rel="noopener noreferrer">
+        <a href="mailto:raul2003santiago@gmail.com" target="_blank" rel="noopener noreferrer" aria-label="Send email">
           <Mail />
         </a>
       </li>
