@@ -1,19 +1,20 @@
 ---
 import Heading from "../ui/Heading.astro";
+import TechIcon from "../icons/TechIcon.astro";
 
 const skills = [
   "Frontend Development",
   "Backend Development",
   "Responsive Design",
   "JavaScript (ES6+)",
-  "Compoent-Based Frameworks (React, Astro)",
+  "Component-Based Frameworks (React, Astro)",
   "CSS (Tailwind CSS, Flexbox, Grid)",
   "Semantic HTML",
   "CSS Architecture",
   "RESTful APIs",
   "Authentication and Security",
   "Database Integration",
-  "Accesability (a11y)",
+  "Accessibility (a11y)",
   "Performance Optimization",
 ];
 const tools = [
@@ -50,7 +51,14 @@ const tools = [
       <section class="tools">
         <Heading as="h4">Tools</Heading>
         <ul class="tools-list list">
-          {tools.map((tool) => <li class="tool-item">{tool}</li>)}
+          {
+            tools.map((tool) => (
+              <li class="tool-item">
+                <TechIcon name={tool} />
+                {tool}
+              </li>
+            ))
+          }
         </ul>
       </section>
     </div>
@@ -77,6 +85,9 @@ const tools = [
   }
   .skill-item,
   .tool-item {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
     padding: 8px 16px;
     border-radius: var(--radius-full);
   }
@@ -107,6 +118,9 @@ const tools = [
   .tool-item:hover {
     background-color: var(--color-primary);
     color: #fff;
+  }
+  .tool-item:hover :global(.tech-icon) {
+    filter: brightness(0) invert(1);
   }
 
   @media screen and (width <= 900px) {
