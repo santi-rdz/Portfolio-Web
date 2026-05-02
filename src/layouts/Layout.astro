@@ -76,7 +76,8 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site ?? Astro.url.origin)
     })} />
   </head>
   <body>
-    <div class="grid-lines">
+    <a href="#main-content" class="skip-link">Skip to main content</a>
+    <div class="grid-lines" aria-hidden="true">
       <span></span>
       <span></span>
       <span></span>
@@ -84,7 +85,9 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site ?? Astro.url.origin)
       <span></span>
     </div>
     <Header />
-    <slot />
+    <div id="main-content">
+      <slot />
+    </div>
     <MediaLinks />
     <Footer />
   </body>
