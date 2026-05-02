@@ -21,7 +21,8 @@ const {
   delayStep = 100,
 } = Astro.props;
 
-const detailsLenght = details.length;
+const visibleDetails = slice ? details.slice(0, slice) : details;
+const remaining = slice ? Math.max(0, details.length - slice) : 0;
 ---
 
 <li
@@ -41,16 +42,12 @@ const detailsLenght = details.length;
     <span class="experience-source">{learnSource}</span>
   </header>
   <ul class="experience-details">
+    {visibleDetails.map((detail) => <li class="experience-detail">{detail}</li>)}
     {
-      details
-        .slice(0, 3)
-        .map((detail) => <li class="experience-detail">{detail}</li>)
-    }
-    {
-      detailsLenght > 3 ? (
-        <a href="/experience">Mas detalles +${detailsLenght - 3}</a>
-      ) : (
-        ""
+      remaining > 0 && (
+        <a href="/experience" class="experience-more">
+          More details +{remaining}
+        </a>
       )
     }
   </ul>
