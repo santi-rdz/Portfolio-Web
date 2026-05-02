@@ -3,4 +3,4 @@ Allow: /
 
 Disallow: /api/
 
-Sitemap: https://raulrodriguez.dev/sitemap.xml
+Sitemap: https://raul-rodriguez.netlify.app/sitemap.xml
