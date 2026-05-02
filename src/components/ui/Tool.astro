@@ -1,11 +1,19 @@
 ---
+import TechIcon from "../icons/TechIcon.astro";
+
 const { name, "data-md": md } = Astro.props;
 ---
 
-<span class="tool-item txt-7" data-md={md !== undefined ? "" : undefined}>{name}</span>
+<span class="tool-item txt-7" data-md={md !== undefined ? "" : undefined}>
+  <TechIcon name={name} size={md !== undefined ? 10 : 14} />
+  {name}
+</span>
 
 <style>
   .tool-item {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
     padding: 8px 16px;
     border-radius: var(--radius-full);
     background-color: var(--color-primary-5);
@@ -19,8 +27,12 @@ const { name, "data-md": md } = Astro.props;
     background-color: var(--color-primary);
     color: #fff;
   }
+  .tool-item:hover :global(.tech-icon) {
+    filter: brightness(0) invert(1);
+  }
   .tool-item[data-md] {
     padding: 3px 8px;
     font-size: 0.65rem;
+    gap: 4px;
   }
 </style>

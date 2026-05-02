@@ -1,0 +1,77 @@
+---
+import {
+  siHtml5,
+  siCss,
+  siJavascript,
+  siTypescript,
+  siReact,
+  siTailwindcss,
+  siVite,
+  siNodedotjs,
+  siExpress,
+  siMysql,
+  siDocker,
+  siPrisma,
+  siZod,
+  siGit,
+  siGithub,
+  siAstro,
+  siSupabase,
+  siVercel,
+  siFigma,
+} from "simple-icons";
+
+interface Props {
+  name: string;
+  size?: number;
+}
+
+const { name, size = 14 } = Astro.props;
+
+const iconMap: Record<string, { path: string; hex: string }> = {
+  HTML5: siHtml5,
+  CSS3: siCss,
+  JavaScript: siJavascript,
+  TypeScript: siTypescript,
+  React: siReact,
+  TailwindCSS: siTailwindcss,
+  "Tailwind CSS": siTailwindcss,
+  Vite: siVite,
+  "Node.js": siNodedotjs,
+  Express: siExpress,
+  MySQL: siMysql,
+  Docker: siDocker,
+  Prisma: siPrisma,
+  Zod: siZod,
+  Git: siGit,
+  GitHub: siGithub,
+  Astro: siAstro,
+  Supabase: siSupabase,
+  Vercel: siVercel,
+  Figma: siFigma,
+};
+
+const icon = iconMap[name];
+---
+
+{
+  icon && (
+    <svg
+      role="img"
+      viewBox="0 0 24 24"
+      width={size}
+      height={size}
+      fill={`#${icon.hex}`}
+      aria-hidden="true"
+      class="tech-icon"
+    >
+      <path d={icon.path} />
+    </svg>
+  )
+}
+
+<style>
+  .tech-icon {
+    flex-shrink: 0;
+  }
+</style>
