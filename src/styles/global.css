@@ -160,11 +160,13 @@ body {
 @font-face {
   font-family: "Outfit";
   src: url("/public/fonts/Outfit-VariableFont_wght.ttf");
+  font-display: swap;
 }
 
 @font-face {
   font-family: "JetBrains";
   src: url("/public/fonts/JetBrainsMono-VariableFont_wght.ttf");
+  font-display: swap;
 }
 
 /* =====================
