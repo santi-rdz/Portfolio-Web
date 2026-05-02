@@ -31,7 +31,10 @@ marked.setOptions({ renderer });
 const renderedContent = marked(resumeContent);
 ---
 
-<Layout>
+<Layout
+  title="Resume — Raul Rodriguez"
+  description="Resume of Raul Rodriguez, Software Engineering student and web developer. Skills in React, Node.js, Prisma, MySQL, and modern web technologies."
+>
   <ResumeSidebar sections={resumeSections} />
   <main class="resume-page">
     <div class="container resume-container">
