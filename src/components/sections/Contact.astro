@@ -6,8 +6,8 @@ import Link from "../ui/Link.astro";
 <section id="contact" class="contact-section center-section">
   <div class="contact-container container">
     <header class="contact-header" data-animate="fade-up">
-      <Heading as="h5">What's Next?</Heading>
-      <Heading as="h1">Get In Touch!</Heading>
+      <Heading as="h4">What's Next?</Heading>
+      <Heading as="h2">Get In Touch!</Heading>
       <p class="contact-description">
         I'm currently looking for new opportunities. Feel free to reach out!
       </p>
@@ -23,15 +23,17 @@ import Link from "../ui/Link.astro";
         type="text"
         name="name"
         placeholder="Your Name"
+        aria-label="Your name"
+        autocomplete="name"
         required
       />
-
       <input
         class="input"
         type="email"
-        required
         name="email"
         placeholder="Your Email"
+        aria-label="Your email"
+        autocomplete="email"
         required
       />
       <textarea
@@ -39,6 +41,7 @@ import Link from "../ui/Link.astro";
         name="message"
         rows="5"
         placeholder="Your Message"
+        aria-label="Your message"
         required></textarea>
       <Link type="submit" data-md as="button" data-mono data-cta
         >Send Message</Link
