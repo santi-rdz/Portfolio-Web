@@ -93,8 +93,6 @@ body {
   font-family: "Outfit";
   width: 100%;
   overflow-x: hidden;
-}
-html {
   scroll-behavior: smooth;
 }
 
@@ -115,6 +113,8 @@ html {
   height: 100dvh;
   overflow-y: scroll;
   scroll-snap-type: y mandatory;
+  scrollbar-color: rgba(0, 0, 0, 0.3) transparent;
+  scrollbar-width: thin; /* Options: auto, thin, none */
 }
 
 /* =====================
@@ -199,7 +199,7 @@ html {
   }
 
   .grid-lines {
-    display: none;
+    grid-template-columns: 0.5fr 5fr 15fr 5fr 0.5fr;
   }
 }
 
@@ -207,6 +207,9 @@ html {
 @media screen and (width <= 480px) {
   .center-section {
     padding-block: 60px;
+  }
+  .grid-lines {
+    grid-template-columns: 0.5fr 7fr 15fr 7fr 0.5fr;
   }
 }
 
