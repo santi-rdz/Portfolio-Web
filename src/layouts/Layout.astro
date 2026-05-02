@@ -5,17 +5,75 @@ import me from "../assets/me.png";
 import Footer from "../components/Footer.astro";
 import Header from "../components/Header.astro";
 import MediaLinks from "../components/MediaLinks.astro";
+
+interface Props {
+  title?: string;
+  description?: string;
+  ogImage?: string;
+  noindex?: boolean;
+}
+
+const defaultTitle = "Raul Rodriguez — Web Developer";
+const defaultDescription =
+  "Portfolio of Raul Rodriguez, a web developer and Software Engineering student at UABC. Skilled in React, Node.js, Astro, and modern web technologies.";
+
+const {
+  title = defaultTitle,
+  description = defaultDescription,
+  ogImage = me.src,
+  noindex = false,
+} = Astro.props;
+
+const canonicalURL = new URL(Astro.url.pathname, Astro.site ?? Astro.url.origin);
 ---
 
 <!doctype html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
     <link rel="icon" type="image/png" href={me.src} />
     <meta name="generator" content={Astro.generator} />
-    <title>Porfolio Web - RDZ</title>
+
+    <!-- SEO -->
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonicalURL.href} />
+    {noindex && <meta name="robots" content="noindex, nofollow" />}
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonicalURL.href} />
+    <meta property="og:image" content={ogImage} />
+    <meta property="og:locale" content="en_US" />
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={ogImage} />
+
     <ClientRouter />
+
+    <!-- Structured Data -->
+    <script type="application/ld+json" set:html={JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "Person",
+      "name": "Raul Rodriguez",
+      "jobTitle": "Web Developer",
+      "url": canonicalURL.origin,
+      "sameAs": [
+        "https://github.com/santi-rdz",
+        "https://linkedin.com/in/raul-rodriguez-169911369"
+      ],
+      "knowsAbout": ["React", "Node.js", "Astro", "TailwindCSS", "JavaScript", "TypeScript"],
+      "alumniOf": {
+        "@type": "CollegeOrUniversity",
+        "name": "Universidad Autonoma de Baja California"
+      }
+    })} />
   </head>
   <body>
     <div class="grid-lines">
