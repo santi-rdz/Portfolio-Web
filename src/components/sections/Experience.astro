@@ -2,8 +2,10 @@
 import Heading from "../ui/Heading.astro";
 import ExperienceItem from "../ui/ExperienceItem.astro";
 import ViewAllLink from "../ui/ViewAllLink.astro";
-import { experience } from "../../data/experience";
+import { getCollection } from "astro:content";
 
+const allExperience = await getCollection("experience");
+const experience = allExperience.sort((a, b) => a.data.order - b.data.order);
 const preview = experience.slice(0, 3);
 ---
 
@@ -14,11 +16,12 @@ const preview = experience.slice(0, 3);
       {
         preview.map((exp, i) => (
           <ExperienceItem
-            title={exp.title}
-            duration={exp.duration}
-            learnSource={exp.learnSource}
-            details={exp.details}
+            title={exp.data.title}
+            duration={exp.data.duration}
+            learnSource={exp.data.learnSource}
+            details={exp.data.details}
             index={i}
+            slice={3}
           />
         ))
       }

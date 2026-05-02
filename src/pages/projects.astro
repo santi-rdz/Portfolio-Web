@@ -2,7 +2,10 @@
 import Layout from "../layouts/Layout.astro";
 import PageHeader from "../components/ui/PageHeader.astro";
 import ProjectCard from "../components/ui/ProjectCard.astro";
-import { projects } from "../data/projects";
+import { getCollection } from "astro:content";
+
+const allProjects = await getCollection("projects");
+const projects = allProjects.sort((a, b) => a.data.order - b.data.order);
 ---
 
 <Layout
@@ -15,7 +18,7 @@ import { projects } from "../data/projects";
       <ul class="project-list">
         {
           projects.map((project, i) => (
-            <ProjectCard project={project} index={i} delayStep={80} />
+            <ProjectCard project={project.data} index={i} delayStep={80} />
           ))
         }
       </ul>

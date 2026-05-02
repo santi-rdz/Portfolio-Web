@@ -2,7 +2,10 @@
 import Layout from "../layouts/Layout.astro";
 import PageHeader from "../components/ui/PageHeader.astro";
 import ExperienceItem from "../components/ui/ExperienceItem.astro";
-import { experience } from "../data/experience";
+import { getCollection } from "astro:content";
+
+const allExperience = await getCollection("experience");
+const experience = allExperience.sort((a, b) => a.data.order - b.data.order);
 ---
 
 <Layout
@@ -16,11 +19,10 @@ import { experience } from "../data/experience";
         {
           experience.map((exp, i) => (
             <ExperienceItem
-              slice=3
-              title={exp.title}
-              duration={exp.duration}
-              learnSource={exp.learnSource}
-              details={exp.details}
+              title={exp.data.title}
+              duration={exp.data.duration}
+              learnSource={exp.data.learnSource}
+              details={exp.data.details}
               index={i}
               delayStep={80}
             />

@@ -2,8 +2,10 @@
 import Heading from "../ui/Heading.astro";
 import ProjectCard from "../ui/ProjectCard.astro";
 import ViewAllLink from "../ui/ViewAllLink.astro";
-import { projects } from "../../data/projects";
+import { getCollection } from "astro:content";
 
+const allProjects = await getCollection("projects");
+const projects = allProjects.sort((a, b) => a.data.order - b.data.order);
 const preview = projects.slice(0, 3);
 ---
 
@@ -13,7 +15,7 @@ const preview = projects.slice(0, 3);
     <ul class="project-list">
       {
         preview.map((project, i) => (
-          <ProjectCard project={project} index={i} maxTools={4} />
+          <ProjectCard project={project.data} index={i} maxTools={4} />
         ))
       }
     </ul>
