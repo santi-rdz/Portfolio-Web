@@ -1,12 +1,12 @@
 ---
-const { class: className, as, ...props } = Astro.props;
+const { class: className, type = "button", as = "a", ...props } = Astro.props;
 ---
 
 {
-  as ? (
-    <as class:list={["link", className]} {...props}>
+  as && as == "button" ? (
+    <button type={type} class:list={["link", className]} {...props}>
       <slot />
-    </as>
+    </button>
   ) : (
     <a class:list={["link", className]} {...props}>
       <slot />
