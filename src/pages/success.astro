@@ -1,0 +1,57 @@
+---
+import Layout from "../layouts/Layout.astro";
+import Link from "../components/ui/Link.astro";
+---
+
+<Layout title="Message Sent — Raul Rodriguez" noindex>
+  <main class="success-page">
+    <div class="success-content" data-animate="fade-up">
+      <span class="success-icon">
+        <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M20 6L9 17l-5-5" />
+        </svg>
+      </span>
+      <h1 class="txt-4 font-semibold">Message Sent</h1>
+      <p class="success-description txt-6">
+        Thanks for reaching out! I'll get back to you as soon as possible.
+      </p>
+      <Link href="/" data-cta data-mono data-md>Back to Home</Link>
+    </div>
+  </main>
+</Layout>
+
+<style>
+  .success-page {
+    min-height: 100dvh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .success-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 1rem;
+    max-width: 400px;
+    padding: 2rem;
+  }
+
+  .success-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 64px;
+    height: 64px;
+    border-radius: var(--radius-full);
+    background-color: rgba(16, 185, 129, 0.08);
+    color: #059669;
+    margin-bottom: 0.5rem;
+  }
+
+  .success-description {
+    color: var(--color-gray);
+    line-height: 1.6;
+  }
+</style>
