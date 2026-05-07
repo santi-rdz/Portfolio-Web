@@ -1,8 +1,10 @@
 ---
-const { as } = Astro.props;
+import type { $brand } from "astro:schema";
+
+const { as, ...props } = Astro.props;
 ---
 
-<as class="heading" data-as={as}>
+<as class="heading" data-as={as} {...props}>
   <slot />
 </as>
 

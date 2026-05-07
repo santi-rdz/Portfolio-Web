@@ -29,6 +29,7 @@ const remaining = slice ? Math.max(0, details.length - slice) : 0;
   class="experience-item"
   data-animate="fade-up"
   style={`--delay: ${index * delayStep}ms`}
+  transition:name={`experience-${index}`}
 >
   <header class="experience-item--header">
     <div>

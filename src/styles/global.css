@@ -154,7 +154,6 @@ body {
   font-family: "Outfit";
   width: 100%;
   overflow-x: hidden;
-  scroll-behavior: smooth;
 }
 
 @font-face {

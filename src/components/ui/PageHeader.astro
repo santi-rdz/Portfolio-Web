@@ -12,7 +12,7 @@ const { backHref, title } = Astro.props;
 
 <div class="page-header" data-animate="fade-up">
   <BackLink href={backHref} />
-  <Heading as="h2">{title}</Heading>
+  <Heading as="h2" transition:name={`${title}-heading`}>{title}</Heading>
 </div>
 
 <style>
