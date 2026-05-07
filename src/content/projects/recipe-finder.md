@@ -1,6 +1,6 @@
 ---
 title: "Recipe Finder"
-description: "Aplicacion para buscar recetas usando la API de Spoonacular"
+description: "Recipe search app using the Spoonacular API"
 github: "https://github.com/santi-rdz/recipe-finder-react"
 website: "https://rdz-recipe-finder-react.netlify.app/"
 image: ../../assets/projects/recipe-web-img.png

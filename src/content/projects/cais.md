@@ -1,6 +1,6 @@
 ---
 title: "CAIS"
-description: "Sistema de evolucion de pacientes para el CAIS"
+description: "Patient evolution system for CAIS"
 github: "https://github.com/santi-rdz/cais"
 image: ../../assets/projects/cais-web-img.png
 tools:
