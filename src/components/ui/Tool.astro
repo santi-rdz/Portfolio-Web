@@ -1,11 +1,18 @@
 ---
 import TechIcon from "../icons/TechIcon.astro";
 
-const { name, "data-md": md } = Astro.props;
+const { name, "data-md": md, "data-sm": sm, "data-square": square } = Astro.props;
+
+const size = sm !== undefined ? 14 : md !== undefined ? 10 : 14;
 ---
 
-<span class="tool-item txt-7" data-md={md !== undefined ? "" : undefined}>
-  <TechIcon name={name} size={md !== undefined ? 10 : 14} />
+<span
+  class="tool-item txt-7"
+  data-md={md !== undefined ? "" : undefined}
+  data-sm={sm !== undefined ? "" : undefined}
+  data-square={square !== undefined ? "" : undefined}
+>
+  <TechIcon name={name} size={size} />
   {name}
 </span>
 
@@ -16,9 +23,9 @@ const { name, "data-md": md } = Astro.props;
     gap: 6px;
     padding: 8px 16px;
     border-radius: var(--radius-full);
-    background-color: var(--color-primary-5);
-    color: var(--color-primary);
-    border: 1px solid var(--color-primary-20);
+    background-color: #fff;
+    color: var(--color-heading);
+    border: 1px solid var(--lines-grid-color);
     font-family: "JetBrains";
     cursor: default;
     transition: background-color 0.2s ease, color 0.2s ease;
@@ -34,5 +41,13 @@ const { name, "data-md": md } = Astro.props;
     padding: 3px 8px;
     font-size: 0.65rem;
     gap: 4px;
+  }
+  .tool-item[data-sm] {
+    padding: 5px 12px;
+    font-size: 0.75rem;
+    gap: 5px;
+  }
+  .tool-item[data-square] {
+    border-radius: var(--radius-md);
   }
 </style>
