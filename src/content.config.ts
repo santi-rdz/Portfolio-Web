@@ -8,9 +8,10 @@ const projects = defineCollection({
       title: z.string(),
       description: z.string(),
       github: z.string().url(),
-      website: z.string().url(),
+      website: z.string().url().optional(),
       image: image(),
       tools: z.array(z.string()),
+      status: z.enum(["completed", "in-progress"]).default("completed"),
       order: z.number(),
     }),
 });

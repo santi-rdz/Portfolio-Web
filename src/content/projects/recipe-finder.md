@@ -11,5 +11,6 @@ tools:
   - JavaScript
   - HTML5
   - CSS3
+status: "completed"
 order: 2
 ---

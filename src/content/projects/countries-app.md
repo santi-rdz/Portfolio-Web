@@ -10,5 +10,6 @@ tools:
   - TailwindCSS
   - Vite
   - JavaScript
+status: "completed"
 order: 4
 ---
