@@ -13,11 +13,14 @@ import Link from "../ui/Link.astro";
       </p>
     </header>
     <form
-      action=""
+      name="contact"
+      method="POST"
+      data-netlify="true"
       class="contact-form"
       data-animate="fade-up"
       style="--delay: 150ms"
     >
+      <input type="hidden" name="form-name" value="contact" />
       <input
         class="input"
         type="text"
