@@ -1,8 +1,8 @@
 # Raul Rodriguez
 
-**Web Developer** | Frontend & Backend | React, Astro, Node.js, JavaScript, CSS
+**Web Developer** | Frontend & Backend | React, Astro, Node.js, JavaScript, TypeScript, CSS
 
-📧 raul2003santiago@gmail.com | 🔗 [GitHub](https://github.com/santi-rdz) | 🔗 [Portfolio](https://portfolio-rdz.netlify.app)
+📧 raul2003santiago@gmail.com | 🔗 [GitHub](https://github.com/santi-rdz) | 🔗 [Portfolio](https://raul-rodriguez.netlify.app)
 
 ---
 
@@ -14,11 +14,11 @@ Software Engineering student at UABC with expertise in <mark>full-stack developm
 
 ## Skills
 
-**Frontend**: React, Astro, JavaScript (ES6+), HTML5, CSS3, TailwindCSS  
+**Frontend**: React, Astro, JavaScript (ES6+), TypeScript, HTML5, CSS3, TailwindCSS  
 **Backend**: Node.js, Express, MySQL, Prisma, REST APIs  
 **Tools**: Git, Vite, Fetch API, Zod, Docker  
 **Concepts**: Responsive Design, Web Accessibility, Component Architecture, API Design  
-**Languages**: JavaScript, C | <mark>English (B2)</mark>
+**Languages**: JavaScript, TypeScript, C | <mark>English (B2)</mark>
 
 ---
 

@@ -8,6 +8,7 @@ tools:
   - TailwindCSS
   - Vite
   - JavaScript
+  - TypeScript
   - Express
   - Node.js
   - MySQL
