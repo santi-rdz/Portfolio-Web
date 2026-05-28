@@ -1,53 +1,62 @@
 # Portfolio Web
 
-Personal portfolio built with **Astro** and **CSS**.
+Personal portfolio for Raul Rodriguez, built with Astro 6, Tailwind CSS v4, and content collections.
 
-## 🚀 Project Structure
+## Requirements
+
+- Node.js 22.12.0 or newer
+- pnpm 10.17.0 or newer
+
+## Commands
+
+```bash
+pnpm install
+pnpm dev
+pnpm build
+pnpm preview
+```
+
+The development server runs at `http://localhost:4321`.
+
+## Project Structure
 
 ```text
 src/
-├── assets/          # Images
+├── assets/              # Images and static source assets
 ├── components/
-│   ├── sections/    # Page sections (Hero, About, Experience, Projects, Skills, Contact)
-│   ├── ui/          # Reusable components (Heading, Link, ExperienceItem, ProjectCard, etc.)
-│   ├── icons/       # SVG icons
-│   ├── Header.astro
-│   ├── Footer.astro
-│   └── MediaLinks.astro
-├── layouts/
-│   └── Layout.astro
-├── pages/
-│   ├── index.astro
-│   ├── experience.astro
-│   └── projects.astro
-├── data/
-│   ├── projects.ts
-│   └── experience.ts
-└── styles/
-    └── global.css
+│   ├── icons/           # Icon components
+│   ├── sections/        # Home page sections
+│   └── ui/              # Reusable UI components
+├── content/
+│   ├── experience/      # Experience collection entries
+│   └── projects/        # Project collection entries
+├── layouts/             # Shared Astro layouts
+├── pages/               # Astro routes
+└── styles/              # Global styles and design tokens
 ```
 
-## 🧞 Commands
+## Stack
 
-```bash
-pnpm dev      # Start dev server
-pnpm build    # Build to ./dist/
-pnpm preview  # Preview build
-```
+- Astro 6
+- Tailwind CSS v4 through `@tailwindcss/vite`
+- TypeScript
+- Astro content collections
+- pnpm
+- Prettier
 
-## 🎨 Stack
+## Content
 
-- **Astro** — Static site generation
-- **CSS** — Semantic HTML with CSS Grid/Flexbox
-- **TypeScript** — Type safety
-- **Prettier** — Code formatting
+Projects and experience entries are managed as Markdown files:
 
-## 📝 Customize
+- Projects: `src/content/projects/*.md`
+- Experience: `src/content/experience/*.md`
 
-- **Projects** → Edit `src/data/projects.ts`
-- **Experience** → Edit `src/data/experience.ts`
-- **Styles** → Update `src/styles/global.css` (CSS variables & animations)
+The collection schemas are defined in `src/content.config.ts`.
 
-## 🚀 Deploy
+## Styling
 
-Deployed on **Netlify**.
+Global styles and design tokens live in `src/styles/global.css`. Prefer existing CSS custom properties such as `var(--color-primary)`, `var(--color-gray)`, and `var(--radius-*)` when adding or updating styles.
+
+## Deployment
+
+The site is deployed on Netlify. Build output is generated in `dist/`.
