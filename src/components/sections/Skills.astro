@@ -15,6 +15,7 @@ const skills = [
   "RESTful APIs",
   "Authentication and Security",
   "Database Integration",
+  "End-to-End Testing",
   "Accessibility (a11y)",
   "Performance Optimization",
 ];
@@ -34,6 +35,7 @@ const tools = [
   "Zod",
   "Prisma",
   "MySQL",
+  "Selenium",
   "Supabase",
   "Vercel",
   "Figma",
@@ -69,71 +71,107 @@ const tools = [
 
 <style>
   .skills-content {
-    display: flex;
-    gap: 24px;
+    display: grid;
+    grid-template-columns: minmax(0, 1.15fr) minmax(340px, 0.85fr);
+    gap: clamp(2rem, 5vw, 4rem);
+    align-items: start;
   }
   .list {
     display: flex;
     flex-wrap: wrap;
-    gap: 1rem;
+    gap: 0.875rem;
     margin-top: 1.5rem;
   }
 
-  .skills {
-    flex-basis: 55%;
-  }
-  .tools {
-    flex-basis: 45%;
-  }
   .skill-item,
   .tool-item {
+    position: relative;
+    isolation: isolate;
     display: inline-flex;
     align-items: center;
-    gap: 6px;
-    padding: 8px 16px;
+    min-height: 39px;
+    gap: 0.5rem;
+    padding: 0.5rem 1rem;
     border-radius: var(--radius-full);
+    border: 1px solid transparent;
+    cursor: default;
+    white-space: nowrap;
+    transform: translateZ(0);
+    will-change: transform;
+    transition:
+      color 0.18s ease,
+      transform 0.18s ease,
+      box-shadow 0.18s ease;
   }
+
+  .skill-item::before,
+  .tool-item::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    border-radius: inherit;
+    opacity: 0;
+    transition: opacity 0.18s ease;
+  }
+
   .skill-item {
     background-color: #f1f5f9;
-    border: 1px solid var(--lines-grid-color);
+    box-shadow: inset 0 0 0 1px var(--lines-grid-color);
     color: var(--color-gray);
-    cursor: default;
-    transition:
-      background-color 0.2s ease,
-      border-color 0.2s ease,
-      color 0.2s ease;
+    font-weight: var(--font-medium);
   }
+
+  .skill-item::before {
+    background-color: #fff;
+    box-shadow:
+      inset 0 0 0 1px var(--color-primary-20),
+      0 10px 24px -18px var(--color-primary);
+  }
+
   .skill-item:hover {
-    background-color: var(--lines-grid-color);
-    border-color: var(--color-gray);
     color: var(--color-heading);
+    transform: translateY(-1px);
   }
+
+  .skill-item:hover::before {
+    opacity: 1;
+  }
+
   .tool-item {
     background-color: var(--color-primary-5);
+    box-shadow: inset 0 0 0 1px var(--color-primary-20);
     color: var(--color-primary);
-    border: 1px solid var(--color-primary-20);
-    cursor: default;
-    transition:
-      background-color 0.2s ease,
-      color 0.2s ease;
+    font-weight: var(--font-semibold);
   }
-  .tool-item:hover {
+
+  .tool-item::before {
     background-color: var(--color-primary);
-    color: #fff;
+    box-shadow: 0 12px 26px -18px var(--color-primary);
   }
-  .tool-item:hover :global(.tech-icon) {
+
+  .tool-item:hover {
+    color: #fff;
+    transform: translateY(-1px);
+  }
+
+  .tool-item:hover::before {
+    opacity: 1;
+  }
+
+  .tool-item :global(.tech-icon) {
+    transition: filter 0.18s ease;
+  }
+
+  .tool-item:hover :global(.tech-icon),
+  .tool-item:focus-visible :global(.tech-icon) {
     filter: brightness(0) invert(1);
   }
 
   @media screen and (width <= 900px) {
     .skills-content {
-      flex-direction: column;
+      grid-template-columns: 1fr;
       gap: 32px;
-    }
-
-    .skills,
-    .tools {
-      flex-basis: auto;
     }
   }
 
@@ -141,7 +179,9 @@ const tools = [
     .skill-item,
     .tool-item {
       font-size: var(--font-7);
-      padding: 6px 12px;
+      min-height: 35px;
+      padding: 0.375rem 0.75rem;
+      white-space: normal;
     }
   }
 </style>
