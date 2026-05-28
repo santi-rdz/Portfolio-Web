@@ -5,9 +5,9 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 ## Commands
 
 ```bash
-npm run dev       # Start dev server (localhost:4321)
-npm run build     # Production build
-npm run preview   # Preview production build
+pnpm dev       # Start dev server (localhost:4321)
+pnpm build     # Production build
+pnpm preview   # Preview production build
 ```
 
 Node >= 22.12.0 required.
