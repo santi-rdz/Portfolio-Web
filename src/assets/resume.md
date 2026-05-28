@@ -1,14 +1,14 @@
 # Raul Rodriguez
 
-**Web Developer** | Frontend & Backend | React, Astro, Node.js, JavaScript, TypeScript, CSS
+**Web Developer** | Frontend, Backend & Testing | React, Astro, Node.js, JavaScript, TypeScript, CSS, Selenium
 
-📧 raul2003santiago@gmail.com | 🔗 [GitHub](https://github.com/santi-rdz) | 🔗 [Portfolio](https://raul-rodriguez.netlify.app)
+[raul.rodriguez39@uabc.edu.mx](mailto:raul.rodriguez39@uabc.edu.mx) | [GitHub](https://github.com/santi-rdz/) | [Portfolio](https://raul-rodriguez.netlify.app/)
 
 ---
 
 ## About
 
-Software Engineering student at UABC with expertise in <mark>full-stack development</mark>. Building responsive, accessible web applications and RESTful backends with modern technologies. Strong foundation in component-based architecture, API design, and JavaScript.
+Software Engineering student at UABC with experience in <mark>full-stack development</mark>. Building responsive, accessible web applications and RESTful backends with modern technologies. Strong foundation in component-based architecture, API design, JavaScript, and automated UI testing with Selenium and E2E testing.
 
 ---
 
@@ -16,16 +16,23 @@ Software Engineering student at UABC with expertise in <mark>full-stack developm
 
 **Frontend**: React, Astro, JavaScript (ES6+), TypeScript, HTML5, CSS3, TailwindCSS  
 **Backend**: Node.js, Express, MySQL, Prisma, REST APIs  
+**Testing**: Selenium, End-to-End Testing (E2E), UI Testing  
 **Tools**: Git, Vite, Fetch API, Zod, Docker  
 **Concepts**: Responsive Design, Web Accessibility, Component Architecture, API Design  
-**Languages**: JavaScript, TypeScript, C | <mark>English (B2)</mark>
+**Languages**: JavaScript, TypeScript, C, Java, Python | <mark>English (B2)</mark>
 
 ---
 
 ## Featured Projects
 
-**CAIS** — Patient Evolution System  
-React, Node.js, Express, MySQL, Prisma | Patient management dashboard with <mark>authentication</mark>
+**CAIS** — Healthcare Administration System  
+React, Node.js, Express, MySQL, Prisma | Internal system for patients, clinical histories, emergencies, and role-based users with <mark>authentication</mark>
+
+**CAIS E2E** — End-to-End Test Automation  
+Java, Selenium, TestNG, WebDriverWait | Automated UI tests covering authentication, patients, evolution notes, emergencies, and user management
+
+**CIMarket** — University Marketplace  
+Next.js, React, Express, Prisma, MySQL | Marketplace for UABC students with product discovery, realtime chat, reviews, and secure authentication
 
 **Recipe Finder** — Recipe Discovery App  
 React, Tailwind CSS, Spoonacular API | Search and filter recipes with real-time data
@@ -56,6 +63,8 @@ Astro, CSS3 | Fast, optimized portfolio with smooth animations
 ## Core Competencies
 
 - <mark>Full-Stack Web Development</mark>
+- Automated UI Testing
+- E2E Testing
 - Component-Based Architecture
 - Responsive & Accessible UI Development
 - <mark>RESTful API Design & Integration</mark>
