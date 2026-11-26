@@ -2,33 +2,32 @@
 import Github from "./icons/Github.astro";
 import Linkedin from "./icons/Linkedin.astro";
 import Mail from "./icons/Mail.astro";
+import { email, socialLinks } from "../data/site";
+import { useI18n } from "../i18n/utils";
+
+const { t } = useI18n(Astro.currentLocale);
 ---
 
 <div class="media-links">
   <ul>
     <li>
       <a
-        href="https://github.com/santi-rdz"
+        href={socialLinks.github}
         target="_blank"
         rel="noopener noreferrer"
-        aria-label="GitHub profile"><Github /></a
+        aria-label={t("a11y.github")}><Github /></a
       >
     </li>
     <li>
       <a
-        href="https://linkedin.com/in/raul-rodriguez-169911369"
+        href={socialLinks.linkedin}
         target="_blank"
         rel="noopener noreferrer"
-        aria-label="LinkedIn profile"><Linkedin /></a
+        aria-label={t("a11y.linkedin")}><Linkedin /></a
       >
     </li>
     <li>
-      <a
-        href="mailto:raul2003santiago@gmail.com"
-        target="_blank"
-        rel="noopener noreferrer"
-        aria-label="Send email"><Mail /></a
-      >
+      <a href={`mailto:${email}`} aria-label={t("a11y.email")}><Mail /></a>
     </li>
   </ul>
   <div class="bar"></div>

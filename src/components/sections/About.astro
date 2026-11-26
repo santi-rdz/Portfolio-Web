@@ -1,52 +1,35 @@
 ---
 import Heading from "../ui/Heading.astro";
-const techs = [
-  "JavaScript (ES6+)",
-  "HTML & CSS",
-  "React",
-  "Astro",
-  "Tailwind CSS",
-  "TypeScript",
-  "Figma",
-  "Node.js",
-  "Next.js",
-  "Git & Github",
-  "VS Code",
-];
+import RichText from "../ui/RichText.astro";
+import { featuredTechs } from "../../data/site";
+import { useI18n } from "../../i18n/utils";
+import type { UIKey } from "../../i18n/ui";
+
+const { t } = useI18n(Astro.currentLocale);
+
+const paragraphs: UIKey[] = ["about.intro", "about.cais", "about.cimarket"];
 ---
 
 <section id="about" class="about-section center-section">
   <div class="container">
     <header>
-      <Heading as="h2">About Me</Heading>
+      <Heading as="h2">{t("about.title")}</Heading>
     </header>
     <div class="about-grid">
       <section class="about-text txt-6">
-        <p data-animate="fade-up" style="--delay: 100ms">
-          Hey! I'm Raul Rodriguez, I'm currently pursuing a degree in Software
-          Engineering and am in my final two semesters at <span
-            >Universidad Autonoma de Baja California</span
-          >, where I've learned core principles of software development, system
-          design, and industry best practices, including writing clean,
-          maintainable, and scalable code.
-        </p>
-        <p data-animate="fade-up" style="--delay: 200ms">
-          Along the way, I discovered a strong interest in web development. I
-          enjoy how modern web applications are built, especially the
-          flexibility and expressiveness of <span>JavaScript</span> and how the language
-          has evolved over time.
-        </p>
-        <p data-animate="fade-up" style="--delay: 300ms">
-          I'm particularly interested in learning and working with modern web
-          technologies such as <span>Tailwind CSS</span>, <span>React</span>,
-          and <span>Astro</span>, and exploring the broader web ecosystem.
-        </p>
+        {
+          paragraphs.map((key, i) => (
+            <p data-animate="fade-up" style={`--delay: ${(i + 1) * 100}ms`}>
+              <RichText text={t(key)} highlightClass="about-highlight" />
+            </p>
+          ))
+        }
       </section>
       <section class="about-techs" data-animate="fade-left">
         <div>
-          <p class="txt-6">Technologies i Work With:</p>
+          <p class="txt-6">{t("about.techsTitle")}</p>
           <ul class="techs-list">
-            {techs.map((tech) => <li>{tech}</li>)}
+            {featuredTechs.map((tech) => <li>{tech}</li>)}
           </ul>
         </div>
       </section>
@@ -72,7 +55,7 @@ const techs = [
     color: var(--color-gray);
   }
 
-  .about-text span {
+  .about-text :global(.about-highlight) {
     color: var(--color-primary);
     font-weight: var(--font-medium);
   }

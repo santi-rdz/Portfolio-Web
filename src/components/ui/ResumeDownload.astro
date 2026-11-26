@@ -1,0 +1,229 @@
+---
+import { languages } from "../../i18n/locales";
+import { useI18n } from "../../i18n/utils";
+import { getAvailableResumes } from "../../lib/resumes";
+
+const { lang, t } = useI18n(Astro.currentLocale);
+
+const resumes = getAvailableResumes();
+// The main action downloads the CV in the page's language when it exists.
+const primary = resumes.find((resume) => resume.lang === lang) ?? resumes[0];
+const hasChoices = resumes.length > 1;
+const menuId = "resume-download-menu";
+---
+
+{
+  primary && (
+    <div class="split-button" data-split-button>
+      <a
+        href={primary.href}
+        download={primary.downloadName}
+        type="application/pdf"
+        hreflang={primary.lang}
+        class="split-main"
+      >
+        {t("resume.download", { language: languages[primary.lang].label })}
+      </a>
+      {hasChoices && (
+        <>
+          <button
+            type="button"
+            class="split-toggle"
+            aria-expanded="false"
+            aria-controls={menuId}
+            aria-label={t("resume.chooseLanguage")}
+            data-split-toggle
+          >
+            <svg
+              aria-hidden="true"
+              width="14"
+              height="14"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2.5"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            >
+              <path d="m6 9 6 6 6-6" />
+            </svg>
+          </button>
+          <ul id={menuId} class="split-menu" hidden data-split-menu>
+            {resumes.map((resume) => (
+              <li>
+                <a
+                  href={resume.href}
+                  download={resume.downloadName}
+                  type="application/pdf"
+                  hreflang={resume.lang}
+                  lang={resume.lang}
+                  aria-current={
+                    resume.lang === primary.lang ? "true" : undefined
+                  }
+                  class="split-option"
+                >
+                  {resume.label}
+                  <span class="split-option-meta" aria-hidden="true">
+                    PDF
+                  </span>
+                </a>
+              </li>
+            ))}
+          </ul>
+        </>
+      )}
+    </div>
+  )
+}
+
+<style>
+  .split-button {
+    position: relative;
+    display: inline-flex;
+    border-radius: var(--radius-md);
+    background-color: var(--color-primary);
+    font-family: "JetBrains", monospace;
+    font-size: var(--font-7);
+  }
+
+  .split-main,
+  .split-toggle {
+    display: inline-flex;
+    align-items: center;
+    color: #fff;
+    background: none;
+    border: 0;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+  }
+
+  .split-main {
+    padding: 10px 18px;
+    border-radius: var(--radius-md) 0 0 var(--radius-md);
+    text-decoration: none;
+  }
+
+  .split-toggle {
+    padding: 10px 12px;
+    border-left: 1px solid rgba(255, 255, 255, 0.35);
+    border-radius: 0 var(--radius-md) var(--radius-md) 0;
+  }
+
+  .split-main:only-child {
+    border-radius: var(--radius-md);
+  }
+
+  .split-main:hover,
+  .split-toggle:hover,
+  .split-toggle[aria-expanded="true"] {
+    background-color: rgba(255, 255, 255, 0.15);
+  }
+
+  .split-toggle svg {
+    transition: transform 0.2s ease;
+  }
+
+  .split-toggle[aria-expanded="true"] svg {
+    transform: rotate(180deg);
+  }
+
+  .split-menu {
+    position: absolute;
+    top: calc(100% + 6px);
+    right: 0;
+    z-index: 5;
+    min-width: 100%;
+    padding: 4px;
+    list-style: none;
+    border: 1px solid var(--lines-grid-color);
+    border-radius: var(--radius-md);
+    background-color: #fff;
+    box-shadow:
+      0 10px 24px -12px rgba(15, 23, 42, 0.25),
+      0 1px 2px rgba(0, 0, 0, 0.06);
+  }
+
+  .split-option {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1.5rem;
+    padding: 8px 12px;
+    border-radius: 4px;
+    color: var(--color-heading);
+    text-decoration: none;
+    white-space: nowrap;
+    transition: background-color 0.15s ease;
+  }
+
+  .split-option:hover,
+  .split-option:focus-visible {
+    background-color: var(--color-primary-5);
+    color: var(--color-primary);
+  }
+
+  .split-option[aria-current="true"] {
+    color: var(--color-primary);
+  }
+
+  .split-option-meta {
+    font-size: 0.7rem;
+    color: var(--color-gray);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .split-toggle svg {
+      transition: none;
+    }
+  }
+</style>
+
+<script>
+  // Disclosure menu: toggle on click, close on Escape (returning focus),
+  // outside click or choosing an option.
+  let controller: AbortController | undefined;
+
+  function initSplitButtons() {
+    // Drop the previous page's document listener after view transitions.
+    controller?.abort();
+    controller = new AbortController();
+    const { signal } = controller;
+
+    document
+      .querySelectorAll<HTMLElement>("[data-split-button]")
+      .forEach((root) => {
+        const toggle = root.querySelector<HTMLButtonElement>(
+          "[data-split-toggle]",
+        );
+        const menu = root.querySelector<HTMLElement>("[data-split-menu]");
+        if (!toggle || !menu) return;
+
+        const isOpen = () => toggle.getAttribute("aria-expanded") === "true";
+        const setOpen = (open: boolean) => {
+          toggle.setAttribute("aria-expanded", String(open));
+          menu.hidden = !open;
+        };
+
+        toggle.addEventListener("click", () => setOpen(!isOpen()));
+        menu.addEventListener("click", () => setOpen(false));
+        document.addEventListener(
+          "keydown",
+          (event) => {
+            if (event.key !== "Escape" || !isOpen()) return;
+            setOpen(false);
+            toggle.focus();
+          },
+          { signal },
+        );
+        document.addEventListener(
+          "click",
+          (event) => {
+            if (!root.contains(event.target as Node)) setOpen(false);
+          },
+          { signal },
+        );
+      });
+  }
+
+  document.addEventListener("astro:page-load", initSplitButtons);
+</script>

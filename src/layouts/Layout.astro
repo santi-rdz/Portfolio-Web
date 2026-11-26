@@ -5,6 +5,9 @@ import me from "../assets/me.png";
 import Footer from "../components/Footer.astro";
 import Header from "../components/Header.astro";
 import MediaLinks from "../components/MediaLinks.astro";
+import { email, featuredTechs, socialLinks } from "../data/site";
+import { defaultLang, languages } from "../i18n/locales";
+import { getAlternates, useI18n } from "../i18n/utils";
 
 interface Props {
   title?: string;
@@ -13,22 +16,27 @@ interface Props {
   noindex?: boolean;
 }
 
-const defaultTitle = "Raul Rodriguez — Web Developer";
-const defaultDescription =
-  "Portfolio of Raul Rodriguez, a web developer and Software Engineering student at UABC. Skilled in React, Node.js, Astro, and modern web technologies.";
+const { lang, t } = useI18n(Astro.currentLocale);
 
 const {
-  title = defaultTitle,
-  description = defaultDescription,
+  title = t("meta.title"),
+  description = t("meta.description"),
   ogImage = me.src,
   noindex = false,
 } = Astro.props;
 
-const canonicalURL = new URL(Astro.url.pathname, Astro.site ?? Astro.url.origin);
+const siteURL = Astro.site ?? Astro.url.origin;
+const canonicalURL = new URL(Astro.url.pathname, siteURL);
+const alternates = getAlternates(Astro.url.pathname).map((alternate) => ({
+  ...alternate,
+  href: new URL(alternate.href, siteURL).href,
+}));
+const xDefault = alternates.find((alternate) => alternate.lang === defaultLang);
+const ogImageURL = new URL(ogImage, siteURL).href;
 ---
 
 <!doctype html>
-<html lang="en">
+<html lang={lang}>
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -40,43 +48,62 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site ?? Astro.url.origin)
     <meta name="description" content={description} />
     <link rel="canonical" href={canonicalURL.href} />
     {noindex && <meta name="robots" content="noindex, nofollow" />}
+    {
+      !noindex &&
+        alternates.map(({ lang: hreflang, href }) => (
+          <link rel="alternate" hreflang={hreflang} href={href} />
+        ))
+    }
+    {
+      !noindex && xDefault && (
+        <link rel="alternate" hreflang="x-default" href={xDefault.href} />
+      )
+    }
 
     <!-- Open Graph -->
     <meta property="og:type" content="website" />
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
     <meta property="og:url" content={canonicalURL.href} />
-    <meta property="og:image" content={ogImage} />
-    <meta property="og:locale" content="en_US" />
+    <meta property="og:image" content={ogImageURL} />
+    <meta property="og:locale" content={languages[lang].ogLocale} />
+    {
+      Object.entries(languages)
+        .filter(([code]) => code !== lang)
+        .map(([, { ogLocale }]) => (
+          <meta property="og:locale:alternate" content={ogLocale} />
+        ))
+    }
 
     <!-- Twitter Card -->
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content={title} />
     <meta name="twitter:description" content={description} />
-    <meta name="twitter:image" content={ogImage} />
+    <meta name="twitter:image" content={ogImageURL} />
 
     <ClientRouter />
 
     <!-- Structured Data -->
-    <script type="application/ld+json" set:html={JSON.stringify({
-      "@context": "https://schema.org",
-      "@type": "Person",
-      "name": "Raul Rodriguez",
-      "jobTitle": "Web Developer",
-      "url": canonicalURL.origin,
-      "sameAs": [
-        "https://github.com/santi-rdz",
-        "https://linkedin.com/in/raul-rodriguez-169911369"
-      ],
-      "knowsAbout": ["React", "Node.js", "Astro", "TailwindCSS", "JavaScript", "TypeScript"],
-      "alumniOf": {
-        "@type": "CollegeOrUniversity",
-        "name": "Universidad Autonoma de Baja California"
-      }
-    })} />
+    <script
+      type="application/ld+json"
+      set:html={JSON.stringify({
+        "@context": "https://schema.org",
+        "@type": "Person",
+        name: "Raul Rodriguez",
+        jobTitle: t("meta.jobTitle"),
+        url: canonicalURL.origin,
+        email: `mailto:${email}`,
+        sameAs: Object.values(socialLinks),
+        knowsAbout: featuredTechs,
+        alumniOf: {
+          "@type": "CollegeOrUniversity",
+          name: "Universidad Autónoma de Baja California",
+        },
+      })}
+    />
   </head>
   <body>
-    <a href="#main-content" class="skip-link">Skip to main content</a>
+    <a href="#main-content" class="skip-link">{t("a11y.skipLink")}</a>
     <div class="grid-lines" aria-hidden="true">
       <span></span>
       <span></span>

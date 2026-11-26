@@ -373,3 +373,26 @@ body {
 .tracking-wider {
   letter-spacing: 0.05em;
 }
+
+/* Timeline: vertical rule with a dot marker (experience and courses lists). */
+.timeline-item {
+  border-left: 1px solid var(--lines-grid-color);
+}
+.timeline-item + .timeline-item {
+  border-top: 1px solid var(--lines-grid-color);
+}
+.timeline-marker {
+  position: relative;
+}
+.timeline-marker::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: 10px;
+  height: 10px;
+  border-radius: var(--radius-full);
+  border: 2px solid var(--color-primary);
+  background-color: #fff;
+}

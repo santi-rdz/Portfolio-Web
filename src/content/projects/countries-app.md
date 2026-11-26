@@ -1,6 +1,8 @@
 ---
 title: "Countries App"
-description: "Country information search app"
+description:
+  en: "Country information search app"
+  es: "App para buscar información de países"
 github: "https://github.com/santi-rdz/rest-countries"
 website: "https://rdz-api-rest-countries.netlify.app/"
 image: ../../assets/projects/countries-web-img.png

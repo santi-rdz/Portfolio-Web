@@ -2,16 +2,19 @@
 import Heading from "../ui/Heading.astro";
 import ProjectCard from "../ui/ProjectCard.astro";
 import ViewAllLink from "../ui/ViewAllLink.astro";
-import { getCollection } from "astro:content";
+import { getSortedCollection } from "../../lib/content";
+import { localizePath, useI18n } from "../../i18n/utils";
 
-const allProjects = await getCollection("projects");
-const projects = allProjects.sort((a, b) => a.data.order - b.data.order);
-const preview = projects.slice(0, 3);
+const { lang, t } = useI18n(Astro.currentLocale);
+
+const preview = (await getSortedCollection("projects")).slice(0, 3);
 ---
 
 <section id="projects" class="projects-scetion center-section">
   <div class="container">
-    <Heading as="h2" transition:name="Projects-heading">Projects</Heading>
+    <Heading as="h2" transition:name="projects-heading"
+      >{t("projects.title")}</Heading
+    >
     <ul class="project-list">
       {
         preview.map((project, i) => (
@@ -19,7 +22,9 @@ const preview = projects.slice(0, 3);
         ))
       }
     </ul>
-    <ViewAllLink href="/projects">View All &rarr;</ViewAllLink>
+    <ViewAllLink href={localizePath("/projects", lang)}
+      >{t("common.viewAll")} &rarr;</ViewAllLink
+    >
   </div>
 </section>
 

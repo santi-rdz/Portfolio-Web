@@ -2,31 +2,26 @@
 import Heading from "../ui/Heading.astro";
 import ExperienceItem from "../ui/ExperienceItem.astro";
 import ViewAllLink from "../ui/ViewAllLink.astro";
-import { getCollection } from "astro:content";
+import { getSortedCollection } from "../../lib/content";
+import { localizePath, useI18n } from "../../i18n/utils";
 
-const allExperience = await getCollection("experience");
-const experience = allExperience.sort((a, b) => a.data.order - b.data.order);
-const preview = experience.slice(0, 3);
+const { lang, t } = useI18n(Astro.currentLocale);
+const preview = (await getSortedCollection("experience")).slice(0, 3);
 ---
 
 <section id="experience" class="experience-section center-section">
   <div class="experience-content container">
-    <Heading as="h2">Experience</Heading>
+    <Heading as="h2">{t("experience.title")}</Heading>
     <ul class="experience-list">
       {
-        preview.map((exp, i) => (
-          <ExperienceItem
-            title={exp.data.title}
-            duration={exp.data.duration}
-            learnSource={exp.data.learnSource}
-            details={exp.data.details}
-            index={i}
-            slice={3}
-          />
+        preview.map((entry, i) => (
+          <ExperienceItem entry={entry} index={i} slice={3} />
         ))
       }
     </ul>
-    <ViewAllLink href="/experience">View All &rarr;</ViewAllLink>
+    <ViewAllLink href={localizePath("/experience", lang)}
+      >{t("common.viewAll")} &rarr;</ViewAllLink
+    >
   </div>
 </section>
 

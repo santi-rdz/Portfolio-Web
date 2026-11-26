@@ -1,21 +1,24 @@
 ---
 import Heading from "../ui/Heading.astro";
 import Link from "../ui/Link.astro";
+import { localizePath, useI18n } from "../../i18n/utils";
+
+const { lang, t } = useI18n(Astro.currentLocale);
 ---
 
 <section id="contact" class="contact-section center-section">
   <div class="contact-container container">
     <header class="contact-header" data-animate="fade-up">
-      <Heading as="h4">What's Next?</Heading>
-      <Heading as="h2">Get In Touch!</Heading>
+      <Heading as="h4">{t("contact.kicker")}</Heading>
+      <Heading as="h2">{t("contact.title")}</Heading>
       <p class="contact-description">
-        I'm currently looking for new opportunities. Feel free to reach out!
+        {t("contact.description")}
       </p>
     </header>
     <form
       name="contact"
       method="POST"
-      action="/success"
+      action={localizePath("/success", lang)}
       data-netlify="true"
       class="contact-form"
       data-animate="fade-up"
@@ -26,8 +29,8 @@ import Link from "../ui/Link.astro";
         class="input"
         type="text"
         name="name"
-        placeholder="Your Name"
-        aria-label="Your name"
+        placeholder={t("contact.name")}
+        aria-label={t("contact.name")}
         autocomplete="name"
         required
       />
@@ -35,8 +38,8 @@ import Link from "../ui/Link.astro";
         class="input"
         type="email"
         name="email"
-        placeholder="Your Email"
-        aria-label="Your email"
+        placeholder={t("contact.email")}
+        aria-label={t("contact.email")}
         autocomplete="email"
         required
       />
@@ -44,11 +47,11 @@ import Link from "../ui/Link.astro";
         class="input"
         name="message"
         rows="5"
-        placeholder="Your Message"
-        aria-label="Your message"
+        placeholder={t("contact.message")}
+        aria-label={t("contact.message")}
         required></textarea>
       <Link type="submit" data-md as="button" data-mono data-cta
-        >Send Message</Link
+        >{t("contact.submit")}</Link
       >
     </form>
   </div>

@@ -1,54 +1,62 @@
 ---
 import Heading from "./Heading.astro";
+import type { CollectionEntry } from "astro:content";
+import { localize, localizePath, useI18n } from "../../i18n/utils";
 
 interface Props {
-  title: string;
-  duration?: string;
-  learnSource: string;
-  details: string[];
+  entry: CollectionEntry<"experience"> | CollectionEntry<"leadership">;
   index: number;
   delayStep?: number;
   slice?: number;
 }
 
-const {
-  title,
-  duration,
-  learnSource,
-  details,
-  index,
-  slice,
-  delayStep = 100,
-} = Astro.props;
+const { entry, index, slice, delayStep = 100 } = Astro.props;
+const { lang, t } = useI18n(Astro.currentLocale);
+
+const { data } = entry;
+const title = localize(data.title, lang);
+const organization = localize(data.organization, lang);
+const details = localize(data.details, lang);
+const duration = "duration" in data ? data.duration?.[lang] : undefined;
+const date = "date" in data ? data.date[lang] : undefined;
 
 const visibleDetails = slice ? details.slice(0, slice) : details;
 const remaining = slice ? Math.max(0, details.length - slice) : 0;
 ---
 
 <li
-  class="experience-item"
+  class="experience-item timeline-item"
   data-animate="fade-up"
   style={`--delay: ${index * delayStep}ms`}
-  transition:name={`experience-${index}`}
+  transition:name={`experience-${entry.id}`}
 >
-  <header class="experience-item--header">
+  <header class="experience-item--header timeline-marker">
     <div>
       <Heading as="h3">{title}</Heading>
       {
         duration && (
-          <span class="experience-duration">Duration: {duration}</span>
+          <span class="experience-duration">
+            {t("experience.duration")} {duration}
+          </span>
         )
       }
+      {date && <span class="experience-duration">{date}</span>}
     </div>
-    <span class="experience-source">{learnSource}</span>
+    <span class="experience-source">{organization}</span>
   </header>
   <ul class="experience-details">
-    {visibleDetails.map((detail) => <li class="experience-detail">{detail}</li>)}
+    {
+      visibleDetails.map((detail) => (
+        <li class="experience-detail">{detail}</li>
+      ))
+    }
     {
       remaining > 0 && (
-        <a href="/experience" class="experience-more">
-          More details +{remaining}
-        </a>
+        <li class="experience-more-item">
+          <a href={localizePath("/experience", lang)} class="experience-more">
+            {t("experience.moreDetails")} +{remaining}
+          </a>
+        </li>
       )
     }
   </ul>
@@ -61,30 +69,10 @@ const remaining = slice ? Math.max(0, details.length - slice) : 0;
     flex-direction: column;
     gap: 1rem;
     padding-block: 24px;
-    border-left: 1px solid var(--lines-grid-color);
   }
+
   .experience-item--header {
-    position: relative;
     padding-left: 24px;
-  }
-  .experience-item--header::before {
-    content: "";
-    position: absolute;
-    left: 0;
-    top: 50%;
-    transform: translateX(-50%) translateY(-50%);
-    width: 10px;
-    height: 10px;
-    border-radius: var(--radius-full);
-    border: 2px solid var(--color-primary);
-    background-color: #fff;
-  }
-
-  .experience-item + .experience-item {
-    border-top: 1px solid var(--lines-grid-color);
-  }
-
-  .experience-item--header {
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -115,7 +103,7 @@ const remaining = slice ? Math.max(0, details.length - slice) : 0;
     text-wrap: balance;
   }
 
-  .experience-details li::before {
+  .experience-details li:not(.experience-more-item)::before {
     content: "•";
     color: var(--color-primary);
     display: inline-block;

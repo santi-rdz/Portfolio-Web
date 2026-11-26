@@ -1,0 +1,128 @@
+---
+import Heading from "./Heading.astro";
+import type { CollectionEntry } from "astro:content";
+import { useI18n } from "../../i18n/utils";
+
+interface Props {
+  course: CollectionEntry<"courses">["data"];
+  index: number;
+  delayStep?: number;
+}
+
+const { course, index, delayStep = 100 } = Astro.props;
+const { title, provider, certificate, repository, inProgress } = course;
+
+const { t } = useI18n(Astro.currentLocale);
+---
+
+<li
+  class="course-item timeline-item timeline-marker"
+  data-animate="fade-up"
+  style={`--delay: ${index * delayStep}ms`}
+>
+  <div class="course-info">
+    <Heading as="h3">
+      {
+        certificate ? (
+          <a
+            href={certificate}
+            target="_blank"
+            rel="noopener noreferrer"
+            class="course-link"
+            aria-label={`${title}, ${t("courses.certificate")} (${t("a11y.newTab")})`}
+          >
+            {title}
+          </a>
+        ) : (
+          title
+        )
+      }
+    </Heading>
+    {
+      (inProgress || repository) && (
+        <span class="course-meta">
+          {inProgress && <span>{t("courses.inProgress")}</span>}
+          {repository && (
+            <a
+              href={repository}
+              target="_blank"
+              rel="noopener noreferrer"
+              class="course-repo"
+            >
+              {t("courses.practiceRepo")} &nearr;
+            </a>
+          )}
+        </span>
+      )
+    }
+  </div>
+  <span class="course-provider">{provider}</span>
+</li>
+
+<style>
+  .course-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1rem;
+    padding: 20px 0 20px 24px;
+  }
+
+  .course-info {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+  }
+
+  .course-link {
+    color: inherit;
+    text-decoration: none;
+    transition: color 0.2s ease;
+  }
+
+  .course-link:hover,
+  .course-link:focus-visible {
+    color: var(--color-primary);
+    text-decoration: underline;
+    text-underline-offset: 3px;
+  }
+
+  .course-meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+    font-size: var(--font-7);
+    color: var(--color-gray);
+  }
+
+  .course-repo {
+    color: var(--color-primary);
+    text-decoration: none;
+  }
+
+  .course-repo:hover,
+  .course-repo:focus-visible {
+    text-decoration: underline;
+  }
+
+  .course-provider {
+    flex-shrink: 0;
+    font-size: var(--font-7);
+    color: var(--color-primary);
+    font-family: "JetBrains";
+  }
+
+  @media screen and (width <= 768px) {
+    .course-item {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 0.25rem;
+    }
+  }
+
+  @media screen and (width <= 480px) {
+    .course-item {
+      padding: 16px;
+    }
+  }
+</style>

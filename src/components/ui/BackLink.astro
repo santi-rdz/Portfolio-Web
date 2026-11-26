@@ -1,15 +1,17 @@
 ---
 import Link from "./Link.astro";
+import { useI18n } from "../../i18n/utils";
 
 interface Props {
   href?: string;
 }
 
 const { href = "/" } = Astro.props;
+const { t } = useI18n(Astro.currentLocale);
 ---
 
 <div class="back-link-wrapper">
-  <Link href={href}>&larr; Back</Link>
+  <Link href={href}>&larr; {t("common.back")}</Link>
 </div>
 
 <style>

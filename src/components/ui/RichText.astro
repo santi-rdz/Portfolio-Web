@@ -1,0 +1,18 @@
+---
+interface Props {
+  text: string;
+  /** Class applied to the `**highlighted**` parts. */
+  highlightClass?: string;
+}
+
+const { text, highlightClass } = Astro.props;
+
+// Splitting on a capture group keeps the highlighted text at odd indexes.
+const parts = text.split(/\*\*(.+?)\*\*/g);
+---
+
+{
+  parts.map((part, index) =>
+    index % 2 === 1 ? <span class={highlightClass}>{part}</span> : part,
+  )
+}

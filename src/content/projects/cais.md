@@ -1,20 +1,21 @@
 ---
 title: "CAIS"
-description: "Internal healthcare administration system for CAIS with patient records, clinical histories, emergencies, role-based users, and medical/nutrition workflows"
-github: "https://github.com/santi-rdz/CAIS"
+description:
+  en: "System for patients, medical and nutrition records, and emergencies at the UABC health care center, built with the team for the medical center as direct client"
+  es: "Sistema de pacientes, expedientes de medicina y nutrición y emergencias del centro de atención a la salud de la UABC, desarrollado con el equipo para el centro médico como cliente directo"
+github: "https://github.com/santi-rdz/cais-uabc"
 image: ../../assets/projects/cais-web-img.png
 tools:
   - React
-  - TailwindCSS
   - Vite
+  - Tailwind CSS
   - JavaScript
-  - TypeScript
-  - Express
   - Node.js
-  - MySQL
-  - Docker
+  - Express
   - Prisma
+  - MySQL
   - Zod
-status: "in-progress"
-order: 1
+  - Docker
+status: "completed"
+order: 2
 ---

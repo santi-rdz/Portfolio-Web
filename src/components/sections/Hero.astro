@@ -2,6 +2,10 @@
 import Link from "../ui/Link.astro";
 import me from "../../assets/me.png";
 import { Image } from "astro:assets";
+import RichText from "../ui/RichText.astro";
+import { useI18n } from "../../i18n/utils";
+
+const { t } = useI18n(Astro.currentLocale);
 ---
 
 <section class="hero-section">
@@ -13,7 +17,7 @@ import { Image } from "astro:assets";
       <span
         class="txt-7 hero-intro font-jetbrains"
         data-animate="fade-up"
-        style="--delay: 0ms">Hi, my name is</span
+        style="--delay: 0ms">{t("hero.intro")}</span
       >
       <h1
         class="hero-title txt-1"
@@ -27,13 +31,13 @@ import { Image } from "astro:assets";
         data-animate="fade-up"
         style="--delay: 200ms"
       >
-        Web Developer
+        {t("hero.role")}
       </h2>
       <p class="hero-description" data-animate="fade-up" style="--delay: 300ms">
-        I'm a web developer currently pursuing a degree in Software Engineering
-        at <span class="color-primary font-medium"
-          >Universidad Autonoma de Baja California</span
-        >. I'm passionate in web development.
+        <RichText
+          text={t("hero.description")}
+          highlightClass="color-primary font-medium"
+        />
       </p>
       <Link
         href="#projects"
@@ -42,15 +46,15 @@ import { Image } from "astro:assets";
         data-fill="left-to-right"
         lg
         data-animate="fade-up"
-        style="--delay: 400ms">View my Work &rarr;</Link
+        style="--delay: 400ms">{t("hero.cta")} &rarr;</Link
       >
     </div>
     <div class="hero-img" data-animate="fade-left" style="--delay: 200ms">
-      <Image src={me} alt="Raul Rodriguez, web developer and Software Engineering student at UABC" />
+      <Image src={me} alt={t("hero.imageAlt")} />
     </div>
   </div>
-  <div class="scroll">
-    <p class="txt-mono-2">SCROLL</p>
+  <div class="scroll" aria-hidden="true">
+    <p class="txt-mono-2">{t("hero.scroll")}</p>
     <span class="scroll-bar"></span>
   </div>
 </section>

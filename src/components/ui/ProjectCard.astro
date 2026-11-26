@@ -2,17 +2,11 @@
 import { Image } from "astro:assets";
 import Github from "../icons/Github.astro";
 import Tool from "./Tool.astro";
+import type { CollectionEntry } from "astro:content";
+import { localize, useI18n } from "../../i18n/utils";
 
 interface Props {
-  project: {
-    title: string;
-    description: string;
-    github: string;
-    website?: string;
-    image: ImageMetadata;
-    tools: string[];
-    status?: "completed" | "in-progress";
-  };
+  project: CollectionEntry<"projects">["data"];
   index: number;
   delayStep?: number;
   maxTools?: number;
@@ -27,7 +21,13 @@ const remainingTools =
     ? project.tools.length - maxTools
     : 0;
 
-const statusLabel = project.status === "in-progress" ? "In Progress" : "Completed";
+const { lang, t } = useI18n(Astro.currentLocale);
+const description = localize(project.description, lang);
+
+const statusLabel =
+  project.status === "in-progress"
+    ? t("projects.inProgress")
+    : t("projects.completed");
 const cardHref = project.website || project.github;
 ---
 
@@ -46,7 +46,7 @@ const cardHref = project.website || project.github;
     <div class="project-img-wrapper">
       <Image
         src={project.image}
-        alt={`Screenshot of ${project.title} — ${project.description}`}
+        alt={`${t("projects.screenshot")} ${project.title}`}
         class="project-img"
         width={280}
         height={180}
@@ -60,7 +60,7 @@ const cardHref = project.website || project.github;
           {statusLabel}
         </span>
       </div>
-      <p class="project-description txt-6">{project.description}</p>
+      <p class="project-description txt-6">{description}</p>
       <ul class="project-tools">
         {
           displayTools.map((tool) => (
@@ -69,11 +69,7 @@ const cardHref = project.website || project.github;
             </li>
           ))
         }
-        {
-          remainingTools > 0 && (
-            <li class="tools-more">+{remainingTools}</li>
-          )
-        }
+        {remainingTools > 0 && <li class="tools-more">+{remainingTools}</li>}
       </ul>
     </div>
   </a>
@@ -82,7 +78,7 @@ const cardHref = project.website || project.github;
     target="_blank"
     rel="noopener noreferrer"
     class="project-github"
-    aria-label={`View ${project.title} on GitHub`}
+    aria-label={t("projects.viewOnGithub", { title: project.title })}
   >
     <Github />
   </a>
@@ -96,7 +92,10 @@ const cardHref = project.website || project.github;
     border-radius: var(--radius-xl);
     background-color: #fff;
     padding-right: 1.25rem;
-    transition: border-color 0.2s ease, box-shadow 0.2s ease, transform 0.2s ease;
+    transition:
+      border-color 0.2s ease,
+      box-shadow 0.2s ease,
+      transform 0.2s ease;
 
     &:hover {
       border-color: var(--color-primary-20);
@@ -194,8 +193,13 @@ const cardHref = project.website || project.github;
   }
 
   @keyframes pulse {
-    0%, 100% { opacity: 1; }
-    50% { opacity: 0.4; }
+    0%,
+    100% {
+      opacity: 1;
+    }
+    50% {
+      opacity: 0.4;
+    }
   }
 
   .project-description {

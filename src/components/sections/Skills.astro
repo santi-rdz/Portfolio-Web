@@ -1,70 +1,36 @@
 ---
 import Heading from "../ui/Heading.astro";
 import TechIcon from "../icons/TechIcon.astro";
+import { skillGroups, type Skill } from "../../data/skills";
+import { useI18n } from "../../i18n/utils";
 
-const skills = [
-  "Frontend Development",
-  "Backend Development",
-  "Responsive Design",
-  "JavaScript (ES6+)",
-  "TypeScript",
-  "Component-Based Frameworks (React, Astro)",
-  "CSS (Tailwind CSS, Flexbox, Grid)",
-  "Semantic HTML",
-  "CSS Architecture",
-  "RESTful APIs",
-  "Authentication and Security",
-  "Database Integration",
-  "End-to-End Testing",
-  "Accessibility (a11y)",
-  "Performance Optimization",
-];
-const tools = [
-  "HTML5",
-  "CSS3",
-  "JavaScript",
-  "TypeScript",
-  "React",
-  "Astro",
-  "Node.js",
-  "Express",
-  "Tailwind CSS",
-  "Git",
-  "GitHub",
-  "VS Code",
-  "Zod",
-  "Prisma",
-  "MySQL",
-  "Selenium",
-  "Supabase",
-  "Vercel",
-  "Figma",
-];
+const { t } = useI18n(Astro.currentLocale);
+
+const toChip = (skill: Skill) =>
+  typeof skill === "string"
+    ? { icon: skill, label: skill }
+    : { icon: skill.icon, label: t(skill.labelKey) };
 ---
 
 <section id="skills" class="skills-section center-section">
   <div class="container">
-    <Heading as="h2">Skills & Tools</Heading>
+    <Heading as="h2">{t("skills.title")}</Heading>
     <div class="skills-content">
-      <section class="skills">
-        <Heading as="h4">Skills</Heading>
-        <ul class="skills-list list">
-          {skills.map((skill) => <li class="skill-item">{skill}</li>)}
-        </ul>
-      </section>
-      <section class="tools">
-        <Heading as="h4">Tools</Heading>
-        <ul class="tools-list list">
-          {
-            tools.map((tool) => (
-              <li class="tool-item">
-                <TechIcon name={tool} />
-                {tool}
-              </li>
-            ))
-          }
-        </ul>
-      </section>
+      {
+        skillGroups.map((group) => (
+          <section class="skill-group">
+            <Heading as="h4">{t(group.titleKey)}</Heading>
+            <ul class="tools-list list">
+              {group.items.map(toChip).map(({ icon, label }) => (
+                <li class="tool-item">
+                  <TechIcon name={icon} />
+                  {label}
+                </li>
+              ))}
+            </ul>
+          </section>
+        ))
+      }
     </div>
   </div>
 </section>
@@ -72,8 +38,8 @@ const tools = [
 <style>
   .skills-content {
     display: grid;
-    grid-template-columns: minmax(0, 1.15fr) minmax(340px, 0.85fr);
-    gap: clamp(2rem, 5vw, 4rem);
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: clamp(2rem, 4vw, 3rem) clamp(2rem, 5vw, 4rem);
     align-items: start;
   }
   .list {
@@ -83,7 +49,6 @@ const tools = [
     margin-top: 1.5rem;
   }
 
-  .skill-item,
   .tool-item {
     position: relative;
     isolation: isolate;
@@ -104,7 +69,6 @@ const tools = [
       box-shadow 0.18s ease;
   }
 
-  .skill-item::before,
   .tool-item::before {
     content: "";
     position: absolute;
@@ -113,29 +77,6 @@ const tools = [
     border-radius: inherit;
     opacity: 0;
     transition: opacity 0.18s ease;
-  }
-
-  .skill-item {
-    background-color: #f1f5f9;
-    box-shadow: inset 0 0 0 1px var(--lines-grid-color);
-    color: var(--color-gray);
-    font-weight: var(--font-medium);
-  }
-
-  .skill-item::before {
-    background-color: #fff;
-    box-shadow:
-      inset 0 0 0 1px var(--color-primary-20),
-      0 10px 24px -18px var(--color-primary);
-  }
-
-  .skill-item:hover {
-    color: var(--color-heading);
-    transform: translateY(-1px);
-  }
-
-  .skill-item:hover::before {
-    opacity: 1;
   }
 
   .tool-item {
@@ -176,7 +117,6 @@ const tools = [
   }
 
   @media screen and (width <= 480px) {
-    .skill-item,
     .tool-item {
       font-size: var(--font-7);
       min-height: 35px;

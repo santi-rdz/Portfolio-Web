@@ -1,7 +1,13 @@
+---
+import { useI18n } from "../i18n/utils";
+
+const { t } = useI18n(Astro.currentLocale);
+---
+
 <footer class="main-footer">
   <div class="lg-container footer-container">
-    <p>Designed and built by Raul Rodriguez.</p>
-    <p>&copy; {new Date().getFullYear()} My Portfolio. All rights reserved.</p>
+    <p>{t("footer.credit")}</p>
+    <p>&copy; {new Date().getFullYear()} {t("footer.rights")}</p>
   </div>
 </footer>
 

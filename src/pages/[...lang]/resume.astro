@@ -1,0 +1,239 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import BackLink from "../../components/ui/BackLink.astro";
+import ResumeSidebar from "../../components/ResumeSidebar.astro";
+import ResumeDownload from "../../components/ui/ResumeDownload.astro";
+import { getLangStaticPaths, localizePath, useI18n } from "../../i18n/utils";
+import { renderDocument } from "../../lib/markdown";
+
+export const getStaticPaths = getLangStaticPaths;
+
+const { lang, t } = useI18n(Astro.currentLocale);
+
+// One Markdown file per locale: src/assets/resume/<lang>.md
+const resumeFiles = import.meta.glob<string>("../../assets/resume/*.md", {
+  query: "?raw",
+  import: "default",
+  eager: true,
+});
+const resumeContent = resumeFiles[`../../assets/resume/${lang}.md`];
+
+if (!resumeContent) {
+  throw new Error(`Missing resume content for locale "${lang}"`);
+}
+
+const { html, sections } = renderDocument(resumeContent);
+---
+
+<Layout
+  title={t("page.resume.title")}
+  description={t("page.resume.description")}
+>
+  <ResumeSidebar sections={sections} />
+  <main class="resume-page">
+    <div class="container resume-container">
+      <div class="resume-header" data-animate="fade-up">
+        <div class="resume-controls">
+          <BackLink href={localizePath("/", lang)} />
+          <ResumeDownload />
+        </div>
+      </div>
+      <article class="resume-content">
+        <Fragment set:html={html} />
+      </article>
+    </div>
+  </main>
+</Layout>
+
+<style is:global>
+  html {
+    scroll-behavior: smooth;
+  }
+</style>
+
+<style>
+  .resume-page {
+    min-height: 100dvh;
+    padding-top: 100px;
+    padding-bottom: 80px;
+    margin-left: 160px;
+  }
+
+  .resume-container {
+    max-width: 900px;
+  }
+
+  @media screen and (width <= 1200px) {
+    .resume-page {
+      margin-left: 0;
+    }
+  }
+
+  .resume-header {
+    margin-bottom: 2rem;
+  }
+
+  .resume-controls {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    align-items: center;
+  }
+
+  .resume-content {
+    font-size: 0.95rem;
+    color: var(--color-gray);
+    line-height: 1.6;
+  }
+
+  .resume-content :global(h1) {
+    font-size: 1.75rem;
+    font-weight: var(--font-bold);
+    color: var(--color-heading);
+    margin-top: 0;
+    margin-bottom: 0.25rem;
+    letter-spacing: -0.5px;
+  }
+
+  .resume-content :global(h1 + p) {
+    margin-top: 0;
+    margin-bottom: 1rem;
+    font-size: 0.9rem;
+    color: var(--color-gray);
+  }
+
+  .resume-content :global(h2) {
+    font-size: 0.95rem;
+    font-weight: var(--font-bold);
+    color: var(--color-heading);
+    margin-top: 1.5rem;
+    margin-bottom: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    display: inline-block;
+    border-bottom: 1px solid var(--color-gray);
+    padding-bottom: 0.25rem;
+  }
+
+  .resume-content :global(h3) {
+    font-size: 1rem;
+    font-weight: var(--font-semibold);
+    color: var(--color-heading);
+    margin-top: 0.75rem;
+    margin-bottom: 0.25rem;
+  }
+
+  .resume-content :global(h3 + p) {
+    margin-top: 0;
+    font-size: 0.9rem;
+    color: var(--color-primary);
+    margin-bottom: 0.5rem;
+  }
+
+  .resume-content :global(p) {
+    margin-bottom: 0.75rem;
+    text-wrap: balance;
+  }
+
+  .resume-content :global(ul) {
+    margin: 0.5rem 0 0.75rem 1.5rem;
+    padding: 0;
+  }
+
+  .resume-content :global(li) {
+    margin-bottom: 0.35rem;
+    list-style: disc;
+    color: var(--color-gray);
+  }
+
+  .resume-content :global(strong) {
+    color: var(--color-heading);
+    font-weight: 600;
+  }
+
+  .resume-content :global(em) {
+    color: var(--color-primary);
+    font-style: italic;
+  }
+
+  .resume-content :global(a) {
+    color: var(--color-primary);
+    text-decoration: none;
+    transition: opacity 0.2s ease;
+  }
+
+  .resume-content :global(a:hover) {
+    opacity: 0.8;
+    text-decoration: underline;
+  }
+
+  .resume-content :global(hr) {
+    border: none;
+    border-top: 1px solid var(--lines-grid-color);
+    margin: 1rem 0;
+  }
+
+  .resume-content :global(mark) {
+    background: none;
+    color: inherit;
+    border-bottom: 2px solid var(--color-primary);
+    padding-bottom: 2px;
+    font-weight: 500;
+  }
+
+  @media screen and (width <= 768px) {
+    .resume-page {
+      padding-top: 90px;
+      padding-bottom: 60px;
+    }
+
+    .resume-container {
+      padding: 0 1rem;
+    }
+
+    .resume-content {
+      font-size: 0.9rem;
+    }
+
+    .resume-content :global(h2) {
+      font-size: 0.9rem;
+      margin-top: 1.25rem;
+    }
+
+    .resume-content :global(h3) {
+      font-size: 0.95rem;
+      margin-top: 0.5rem;
+    }
+  }
+
+  @media screen and (width <= 480px) {
+    .resume-page {
+      padding-top: 80px;
+      padding-bottom: 48px;
+    }
+
+    .resume-content {
+      font-size: 0.85rem;
+    }
+
+    .resume-content :global(h1) {
+      font-size: 1.5rem;
+    }
+
+    .resume-content :global(h2) {
+      font-size: 0.85rem;
+      margin-top: 1rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .resume-content :global(ul) {
+      margin-left: 1.25rem;
+    }
+
+    .resume-controls {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 0.75rem;
+    }
+  }
+</style>

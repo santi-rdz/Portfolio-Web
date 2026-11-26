@@ -3,14 +3,31 @@ import Link from "./ui/Link.astro";
 import Github from "./icons/Github.astro";
 import Linkedin from "./icons/Linkedin.astro";
 import Mail from "./icons/Mail.astro";
+import { email, socialLinks } from "../data/site";
+import LanguagePicker from "./LanguagePicker.astro";
+import { localizePath, useI18n } from "../i18n/utils";
+
+const { lang, t } = useI18n(Astro.currentLocale);
+const homeHref = localizePath("/", lang);
+
+const navItems = [
+  { href: "/#about", label: t("nav.about") },
+  { href: "/#experience", label: t("nav.experience") },
+  { href: "/#projects", label: t("nav.projects") },
+  { href: "/#skills", label: t("nav.skills") },
+  { href: "/#contact", label: t("nav.contact") },
+].map((item) => ({ ...item, href: localizePath(item.href, lang) }));
 ---
 
 <header class="main-header">
-  <nav class="nav lg-container" aria-label="Main">
-    <a href="/" class="logo">&lt;RR /&gt;</a>
+  <nav class="nav lg-container" aria-label={t("a11y.mainNav")}>
+    <div class="nav-brand">
+      <a href={homeHref} class="logo">&lt;RR /&gt;</a>
+      <LanguagePicker />
+    </div>
     <button
       class="nav-toggle"
-      aria-label="Toggle navigation"
+      aria-label={t("a11y.toggleNav")}
       aria-expanded="false"
     >
       <span></span>
@@ -19,24 +36,40 @@ import Mail from "./icons/Mail.astro";
     </button>
     <ul class="nav-ul">
       <li class="nav-logo-item">
-        <a href="/" class="logo">&lt;RR /&gt;</a>
+        <a href={homeHref} class="logo">&lt;RR /&gt;</a>
       </li>
-      <li><Link href="/#about">About</Link></li>
-      <li><Link href="/#experience">Experience</Link></li>
-      <li><Link href="/#projects">Projects</Link></li>
-      <li><Link href="/#skills">Skills</Link></li>
-      <li><Link href="/#contact">Contact</Link></li>
+      {
+        navItems.map(({ href, label }) => (
+          <li>
+            <Link href={href}>{label}</Link>
+          </li>
+        ))
+      }
       <li>
-        <Link href="/resume" data-cta data-fill="bottom-to-up">Resume</Link>
+        <Link
+          href={localizePath("/resume", lang)}
+          data-cta
+          data-fill="bottom-to-up">{t("nav.resume")}</Link
+        >
       </li>
       <li class="nav-socials">
-        <a href="https://github.com/santi-rdz" target="_blank" rel="noopener noreferrer" aria-label="GitHub profile">
+        <a
+          href={socialLinks.github}
+          target="_blank"
+          rel="noopener noreferrer"
+          aria-label={t("a11y.github")}
+        >
           <Github />
         </a>
-        <a href="https://linkedin.com/in/raul-rodriguez-169911369" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn profile">
+        <a
+          href={socialLinks.linkedin}
+          target="_blank"
+          rel="noopener noreferrer"
+          aria-label={t("a11y.linkedin")}
+        >
           <Linkedin />
         </a>
-        <a href="mailto:raul2003santiago@gmail.com" target="_blank" rel="noopener noreferrer" aria-label="Send email">
+        <a href={`mailto:${email}`} aria-label={t("a11y.email")}>
           <Mail />
         </a>
       </li>
@@ -76,6 +109,12 @@ import Mail from "./icons/Mail.astro";
     display: flex;
     align-items: center;
     gap: 2rem;
+  }
+
+  .nav-brand {
+    display: flex;
+    align-items: center;
+    gap: 1.25rem;
   }
 
   .logo {
@@ -129,7 +168,9 @@ import Mail from "./icons/Mail.astro";
       height: 2px;
       background-color: var(--color-heading);
       border-radius: 2px;
-      transition: transform 0.3s ease, opacity 0.3s ease;
+      transition:
+        transform 0.3s ease,
+        opacity 0.3s ease;
     }
 
     .nav-toggle.is-open {
@@ -205,7 +246,9 @@ import Mail from "./icons/Mail.astro";
       display: flex;
       padding: 8px;
       border-radius: var(--radius-md);
-      transition: color 0.3s ease, transform 0.3s ease;
+      transition:
+        color 0.3s ease,
+        transform 0.3s ease;
     }
 
     .nav-socials a:hover {
@@ -274,9 +317,12 @@ import Mail from "./icons/Mail.astro";
     });
 
     document.addEventListener("click", (e) => {
-      if (navUl.classList.contains("is-open") &&
-          !navUl.contains(e.target) &&
-          !toggle.contains(e.target)) {
+      const target = e.target as Node;
+      if (
+        navUl.classList.contains("is-open") &&
+        !navUl.contains(target) &&
+        !toggle.contains(target)
+      ) {
         closeNav();
       }
     });

@@ -1,22 +1,29 @@
 ---
+import { useI18n } from "../i18n/utils";
+
 interface Props {
   sections: { id: string; label: string }[];
 }
 
 const { sections } = Astro.props;
+const { t } = useI18n(Astro.currentLocale);
 ---
 
 <aside class="resume-sidebar">
-  <div class="sidebar-header">On this page</div>
-  <nav class="sidebar-nav">
+  <div class="sidebar-header" id="resume-sidebar-heading">
+    {t("resume.onThisPage")}
+  </div>
+  <nav class="sidebar-nav" aria-labelledby="resume-sidebar-heading">
     <ul class="sidebar-list">
-      {sections.map((section) => (
-        <li>
-          <a href={`#${section.id}`} class="sidebar-link">
-            {section.label}
-          </a>
-        </li>
-      ))}
+      {
+        sections.map((section) => (
+          <li>
+            <a href={`#${section.id}`} class="sidebar-link">
+              {section.label}
+            </a>
+          </li>
+        ))
+      }
     </ul>
   </nav>
 </aside>
@@ -61,7 +68,9 @@ const { sections } = Astro.props;
     color: var(--color-gray);
     text-decoration: none;
     font-size: 0.9rem;
-    transition: color 0.2s ease, border-left 0.2s ease;
+    transition:
+      color 0.2s ease,
+      border-left 0.2s ease;
     border-left: 3px solid transparent;
   }
 
@@ -113,7 +122,8 @@ const { sections } = Astro.props;
           link.classList.add("active");
 
           // Scroll to section
-          const targetPosition = target.getBoundingClientRect().top + window.scrollY - headerHeight;
+          const targetPosition =
+            target.getBoundingClientRect().top + window.scrollY - headerHeight;
           window.scrollTo({
             top: targetPosition,
             behavior: "smooth",

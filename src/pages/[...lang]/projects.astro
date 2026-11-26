@@ -1,0 +1,55 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import PageHeader from "../../components/ui/PageHeader.astro";
+import ProjectCard from "../../components/ui/ProjectCard.astro";
+import { getSortedCollection } from "../../lib/content";
+import { getLangStaticPaths, localizePath, useI18n } from "../../i18n/utils";
+
+export const getStaticPaths = getLangStaticPaths;
+
+const { lang, t } = useI18n(Astro.currentLocale);
+
+const projects = await getSortedCollection("projects");
+---
+
+<Layout
+  title={t("page.projects.title")}
+  description={t("page.projects.description")}
+>
+  <main class="projects-page">
+    <div class="container projects-page-content">
+      <PageHeader
+        backHref={localizePath("/#projects", lang)}
+        title={t("projects.title")}
+        transitionName="projects-heading"
+      />
+      <ul class="project-list">
+        {
+          projects.map((project, i) => (
+            <ProjectCard project={project.data} index={i} delayStep={80} />
+          ))
+        }
+      </ul>
+    </div>
+  </main>
+</Layout>
+
+<style>
+  .projects-page {
+    min-height: 100dvh;
+    padding-top: 100px;
+    padding-bottom: 80px;
+  }
+
+  .project-list {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+  }
+
+  @media screen and (width <= 768px) {
+    .project-list {
+      gap: 1.25rem;
+    }
+  }
+</style>

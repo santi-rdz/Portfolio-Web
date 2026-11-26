@@ -1,0 +1,145 @@
+---
+import { languages } from "../i18n/locales";
+import { getAlternates, useI18n } from "../i18n/utils";
+
+const { lang: currentLang, t } = useI18n(Astro.currentLocale);
+const alternates = getAlternates(Astro.url.pathname);
+const activeIndex = alternates.findIndex(({ lang }) => lang === currentLang);
+---
+
+<nav class="language-switch" aria-label={t("a11y.languagePicker")}>
+  <ul
+    style={`--options: ${alternates.length}; --current: ${activeIndex};`}
+    data-language-switch
+  >
+    {
+      alternates.map(({ lang, href }, index) => {
+        const { label, short } = languages[lang];
+        const isCurrent = lang === currentLang;
+        return (
+          <li>
+            <a
+              href={href}
+              hreflang={lang}
+              lang={lang}
+              aria-current={isCurrent ? "true" : undefined}
+              aria-label={label}
+              title={label}
+              class="language-option"
+              data-index={index}
+              data-astro-reload
+            >
+              {short}
+            </a>
+          </li>
+        );
+      })
+    }
+  </ul>
+</nav>
+
+<style>
+  .language-switch ul {
+    --gap: 3px;
+    position: relative;
+    display: grid;
+    grid-template-columns: repeat(var(--options), 1fr);
+    padding: var(--gap);
+    list-style: none;
+    border-radius: var(--radius-md);
+    background-color: var(--color-primary-5);
+    box-shadow: inset 0 0 0 1px var(--color-primary-20);
+  }
+
+  /* Sliding thumb, styled like the site's elevated cards. */
+  .language-switch ul::before {
+    content: "";
+    position: absolute;
+    top: var(--gap);
+    bottom: var(--gap);
+    left: var(--gap);
+    width: calc((100% - 2 * var(--gap)) / var(--options));
+    border-radius: 4px;
+    background-color: #fff;
+    box-shadow:
+      inset 0 0 0 1px var(--color-primary-20),
+      0 1px 3px rgba(0, 0, 0, 0.1),
+      0 1px 2px -1px rgba(0, 0, 0, 0.1);
+    transform: translateX(calc(100% * var(--active, var(--current))));
+    transition: transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
+  }
+
+  .language-option {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 36px;
+    min-height: 28px;
+    padding-inline: 8px;
+    font-family: "JetBrains", monospace;
+    font-size: var(--font-7);
+    font-weight: var(--font-semibold);
+    letter-spacing: 0.3px;
+    color: var(--color-gray);
+    text-decoration: none;
+    border-radius: 4px;
+    transition: color 0.2s ease;
+  }
+
+  .language-option:hover {
+    color: var(--color-heading);
+  }
+
+  .language-option[aria-current="true"] {
+    color: var(--color-primary);
+    cursor: default;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .language-switch ul::before {
+      transition: none;
+    }
+  }
+</style>
+
+<script>
+  // Slide the thumb to the chosen language before navigating, so the control
+  // behaves like a switch. Plain links keep working without JavaScript.
+  const SLIDE_MS = 220;
+  const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
+
+  function onSwitchClick(event: MouseEvent) {
+    const list = event.currentTarget as HTMLElement;
+    const link = (event.target as Element).closest<HTMLAnchorElement>(
+      "a[data-index]",
+    );
+    const isModified =
+      event.metaKey || event.ctrlKey || event.shiftKey || event.altKey;
+    if (!link || link.ariaCurrent === "true" || isModified) return;
+    if (reduceMotion.matches) return;
+
+    event.preventDefault();
+    list.style.setProperty("--active", link.dataset.index ?? "0");
+    window.setTimeout(() => window.location.assign(link.href), SLIDE_MS);
+  }
+
+  function initLanguageSwitch() {
+    document
+      .querySelectorAll<HTMLElement>("[data-language-switch]")
+      .forEach((list) => list.addEventListener("click", onSwitchClick));
+  }
+
+  // A page restored from the back/forward cache keeps the slid thumb; drop
+  // the override so it falls back to the server-rendered `--current`.
+  function resetLanguageSwitch(event: PageTransitionEvent) {
+    if (!event.persisted) return;
+    document
+      .querySelectorAll<HTMLElement>("[data-language-switch]")
+      .forEach((list) => list.style.removeProperty("--active"));
+  }
+
+  document.addEventListener("astro:page-load", initLanguageSwitch);
+  window.addEventListener("pageshow", resetLanguageSwitch);
+</script>

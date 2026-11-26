@@ -1,6 +1,8 @@
 ---
 title: "Dictionary"
-description: "Word definition search app"
+description:
+  en: "Word definition search app"
+  es: "App para buscar definiciones de palabras"
 github: "https://github.com/santi-rdz/dictionary-web"
 website: "https://rdz-dictionary-react.netlify.app/"
 image: ../../assets/projects/dictionary-web-img.png

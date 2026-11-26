@@ -5,14 +5,16 @@ import Heading from "./Heading.astro";
 interface Props {
   backHref: string;
   title: string;
+  /** Stable view-transition name, independent of the translated title. */
+  transitionName?: string;
 }
 
-const { backHref, title } = Astro.props;
+const { backHref, title, transitionName } = Astro.props;
 ---
 
 <div class="page-header" data-animate="fade-up">
   <BackLink href={backHref} />
-  <Heading as="h2" transition:name={`${title}-heading`}>{title}</Heading>
+  <Heading as="h2" transition:name={transitionName}>{title}</Heading>
 </div>
 
 <style>

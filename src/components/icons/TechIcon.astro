@@ -10,19 +10,44 @@ import {
   siNodedotjs,
   siExpress,
   siMysql,
+  siPostgresql,
   siDocker,
   siPrisma,
   siZod,
   siGit,
   siGithub,
+  siGithubactions,
   siAstro,
   siSupabase,
-  siVercel,
-  siFigma,
   siSelenium,
   siOpenjdk,
   siApachemaven,
+  siPython,
+  siCplusplus,
+  siSwift,
+  siExpo,
+  siTanstack,
+  siHono,
+  siNeon,
+  siCloudflare,
+  siCloudflareworkers,
+  siRevenuecat,
+  siJira,
+  siVitest,
+  siBruno,
 } from "simple-icons";
+import ClipboardList from "lucide-astro/ClipboardList";
+import Database from "lucide-astro/Database";
+import FlaskConical from "lucide-astro/FlaskConical";
+import Languages from "lucide-astro/Languages";
+import Layers from "lucide-astro/Layers";
+import MessagesSquare from "lucide-astro/MessagesSquare";
+import Network from "lucide-astro/Network";
+import Palette from "lucide-astro/Palette";
+import Sparkles from "lucide-astro/Sparkles";
+import TestTubeDiagonal from "lucide-astro/TestTubeDiagonal";
+import Users from "lucide-astro/Users";
+import Workflow from "lucide-astro/Workflow";
 
 interface Props {
   name: string;
@@ -31,53 +56,104 @@ interface Props {
 
 const { name, size = 14 } = Astro.props;
 
-const iconMap: Record<string, { path: string; hex: string }> = {
+// Brand logos from simple-icons.
+const brandIcons: Record<string, { path: string; hex: string }> = {
+  HTML: siHtml5,
   HTML5: siHtml5,
+  CSS: siCss,
   CSS3: siCss,
   JavaScript: siJavascript,
   TypeScript: siTypescript,
+  Python: siPython,
+  "C/C++": siCplusplus,
+  Swift: siSwift,
+  Java: siOpenjdk,
   React: siReact,
+  "React Native": siReact,
+  Expo: siExpo,
+  Astro: siAstro,
   TailwindCSS: siTailwindcss,
   "Tailwind CSS": siTailwindcss,
+  "TanStack Query": siTanstack,
   Vite: siVite,
   "Node.js": siNodedotjs,
   Express: siExpress,
-  MySQL: siMysql,
-  Docker: siDocker,
+  Hono: siHono,
   Prisma: siPrisma,
+  PostgreSQL: siPostgresql,
+  Neon: siNeon,
+  "Neon PostgreSQL": siNeon,
+  Supabase: siSupabase,
+  MySQL: siMysql,
   Zod: siZod,
+  Cloudflare: siCloudflare,
+  "Cloudflare Workers": siCloudflareworkers,
+  R2: siCloudflare,
+  "Durable Objects": siCloudflare,
+  Hyperdrive: siCloudflare,
+  RevenueCat: siRevenuecat,
+  Docker: siDocker,
+  "CI/CD (GitHub Actions)": siGithubactions,
   Git: siGit,
   GitHub: siGithub,
-  Astro: siAstro,
-  Supabase: siSupabase,
-  Vercel: siVercel,
-  Figma: siFigma,
+  Jira: siJira,
+  Vitest: siVitest,
   Selenium: siSelenium,
-  Java: siOpenjdk,
+  Bruno: siBruno,
   Maven: siApachemaven,
 };
 
-const icon = iconMap[name];
+// Generic glyphs for tools and practices without an official simple-icons logo.
+const genericIcons: Record<string, typeof Database> = {
+  SQL: Database,
+  OpenAI: Sparkles,
+  "REST APIs": Network,
+  TestNG: FlaskConical,
+  "End-to-end testing": TestTubeDiagonal,
+  "Page Object Model": Layers,
+  "Team leadership": Users,
+  "Client interviews": MessagesSquare,
+  Requirements: ClipboardList,
+  "Use cases": Workflow,
+  "UI design": Palette,
+  "Spanish (native)": Languages,
+  "English (B2)": Languages,
+};
+
+const brand = brandIcons[name];
+const Generic = genericIcons[name];
 ---
 
 {
-  icon && (
+  brand ? (
     <svg
       role="img"
       viewBox="0 0 24 24"
       width={size}
       height={size}
-      fill={`#${icon.hex}`}
+      fill={`#${brand.hex}`}
       aria-hidden="true"
       class="tech-icon"
     >
-      <path d={icon.path} />
+      <path d={brand.path} />
     </svg>
+  ) : (
+    Generic && (
+      <Generic
+        size={size}
+        aria-hidden="true"
+        class="tech-icon tech-icon--generic"
+      />
+    )
   )
 }
 
 <style>
   .tech-icon {
     flex-shrink: 0;
+  }
+
+  .tech-icon--generic {
+    color: var(--color-primary);
   }
 </style>
